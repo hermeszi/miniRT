@@ -27,17 +27,10 @@ void	ft_draw_pixel(t_data *data, int x, int y, int color)
 
 void	ft_redraw(t_data *data)
 {
-	if (data->fractal_type == MANDELBROT)
-		ft_draw_mandelbrot(data);
-	else if (data->fractal_type == JULIA)
-		ft_draw_julia(data);
-	else if (data->fractal_type == TRICORN)
-		ft_draw_tricorn(data);
-	else
-		perror("No valid Fractal Selection");
+	printf("-->REDRAW<--\n");
 }
 
-void	ft_clear_image(t_data *data)
+void	ft_clear_image(t_window *data)
 {
 	int	x;
 	int	y;
@@ -48,7 +41,7 @@ void	ft_clear_image(t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			ft_draw_pixel(data, x, y, data->base_color);
+			ft_draw_pixel(data, x, y, COLOR_BLACK);
 			x++;
 		}
 		y++;
