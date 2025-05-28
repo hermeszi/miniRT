@@ -1,6 +1,6 @@
 # ✅ miniRT Development Checklist
 
-> This file tracks the requirements for the 42 Singapore miniRT project and breaks them into clear tasks. Check items off as you complete them.
+> requirements for the 42 Singapore miniRT project
 
 ---
 ## 📚 Useful Learning Resources
