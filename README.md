@@ -5,7 +5,6 @@
 ---
 ## 📚 Useful Learning Resources
 
-To understand ray tracing, here are some excellent learning resources:
 
 - **Overview Article**: [Real-Time Ray Tracing Overview](https://www.realtimerendering.com/raytracing.html)
 - **Video Series**: [NVIDIA’s Ray Tracing Essentials on YouTube](https://youtube.com/playlist?list=PLs59hM6wCkPnukQ6neBnbipvHOxOjOPoT&si=WD3jhuWwbIs6JpLn)
