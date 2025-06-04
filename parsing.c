@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/04 12:39:04 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/04 14:23:26 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,17 @@ void	init_scene(t_scene *scene)
 	scene->objects = NULL;
 }
 
-void	parse_lines(int fd, char *line, t_scene, int *obj_count)
+void	validate_scene(t_scene *scene)
+{
+	if (scene->ambient.ratio < 0)
+		print_error("Error: Missing ambient light");
+	if (scene->camera.fov <= 0)
+		print_error("Error: Missing camera");
+	if (scene->light.brightness < 0)
+		print_error("Error: Missing light source");
+}
+
+void	parse_lines(int fd, char *line, t_scene *scene, int *obj_count)
 {
 	while (line)
 	{
@@ -49,7 +59,20 @@ void	parse_lines(int fd, char *line, t_scene, int *obj_count)
 				line = clean_line(line);
 			continue;
 		}
+		if (!ft_strncmp(line, "A ", 2))
+		else if (!ft_strncmp(line, "C ", 2))
+		else if (!ft_strncmp(line, "L ", 2))
+		else if (!ft_strncmp(line, "sp ", 3))
+		else if (!ft_strncmp(line, "pl ", 3))
+		else if (!ft_strncmp(line, "cy ", 3))
+		else
+			print_error("Error: Invalid element identifier");
+		free (line);
+		line = get_next_line(fd);
+		if (line)
+			line = clean_line(line);
 	}
+	scene->object_count = *obj_count;
 }
 
 t_scene	*parse_file(char *file, t_scene *scene)
