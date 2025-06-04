@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fractol.h                                       :+:      :+:    :+:   */
+/*   minirt.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myuen <myuen@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_FRACTOL_H
-# define FT_FRACTOL_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
 # include "mlx.h"
 # include "libft.h"
@@ -189,5 +189,6 @@ int			ft_isvalid_float_str(const char *str);
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
+void		print_error(char *msg);
 
 #endif
