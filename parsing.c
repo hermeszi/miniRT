@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/04 14:23:26 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/04 14:41:10 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,46 @@ void	validate_scene(t_scene *scene)
 		print_error("Error: Missing camera");
 	if (scene->light.brightness < 0)
 		print_error("Error: Missing light source");
+}
+
+char	*clean_line(char *line)
+{
+	char	*clean;
+	int		x;
+	int		y;
+
+	if (!line)
+		return (NULL);
+	x = 0;
+	while (line[x] && line[x] != '\n')
+		x++;
+	line[x] = '\0';
+	x = 0;
+	while (line[x] && (line[x] == ' ' || line[x] == '\t'))
+		x++;
+	if (!line[x])
+	{
+		free (line);
+		return (ft_strdup(""));
+	}
+	clean = malloc(ft_strlen(line) + 1);
+	if (!clean)
+		print_error ("Error: Memory allocation failed");
+	y = 0;
+	while (line[x])
+	{
+		if (line[x] == ' ' || line[x] == '\t')
+		{
+			clean[y++] = ' ';
+			while (line[x] && (line[x] == ' ' || line[x] == '\t'))
+				x++;
+		}
+		else
+			clean[y++] = line[x++];
+	}
+	clean[y] = '\0';
+	free (line);
+	return (clean);
 }
 
 void	parse_lines(int fd, char *line, t_scene *scene, int *obj_count)
