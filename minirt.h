@@ -191,4 +191,18 @@ int			ft_isvalid_float_str(const char *str);
 /********************************************************/
 void		print_error(char *msg);
 
+/********************************************************/
+/*					Parse Functions						*/
+/********************************************************/
+void		parse_ambient(char *line, t_scene *scene);
+void		parse_camera(char *line, t_scene *scene);
+void		parse_light(char *line, t_scene *scene);
+void		parse_color(char *str, t_color *color);
+
+/********************************************************/
+/*					Vector Functions					*/
+/********************************************************/
+double		vec3_length(t_vec3 v);
+t_vec3		vec3_norm(t_vec3 v)
+
 #endif
