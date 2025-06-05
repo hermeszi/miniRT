@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/05 14:57:33 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/05 16:10:03 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,17 @@ void	parse_lines(int fd, char *line, t_scene *scene, int *obj_count)
 			continue;
 		}
 		if (!ft_strncmp(line, "A ", 2))
+			parse_ambient(line, scene);
 		else if (!ft_strncmp(line, "C ", 2))
+			parse_camera(line, scene);
 		else if (!ft_strncmp(line, "L ", 2))
+			parse_light(line, scene);
 		else if (!ft_strncmp(line, "sp ", 3))
+			parse_sphere(line, scene, obj_count);
 		else if (!ft_strncmp(line, "pl ", 3))
+			parse_plane(line, scene, obj_count);
 		else if (!ft_strncmp(line, "cy ", 3))
+			parse_cylinder(line, scene, obj_count);
 		else
 			print_error("Error\nInvalid element identifier");
 		free (line);
@@ -147,7 +153,7 @@ void	parse_norm_vector(char *str, t_vec3 *vec)
 	parse_vector(str, vec);
 	if (vec->x == 0 && vec->y == 0 && vec->z == 0)
 		print_error("Error\nDirection vector cannot be zero");
-	*vec = vec3_nomalize(*vec);
+	*vec = vec3_norm(*vec);
 }
 
 t_scene	*parse_file(char *file, t_scene *scene)
@@ -157,7 +163,7 @@ t_scene	*parse_file(char *file, t_scene *scene)
 	char	*line;
 
 	obj_count = 0;
-	fd = open(file_path, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		print_error("Error\nCould not open scene file");
 	check_filename(file);

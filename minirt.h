@@ -21,6 +21,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <errno.h>
+# include <fcntl.h>
 /********************************************************/
 /*									Constants			*/
 /********************************************************/
@@ -187,17 +188,37 @@ void		ft_shift_color(int *color, int *color_index);
 double		ft_atof(const char *str);
 int			ft_isvalid_float_str(const char *str);
 /********************************************************/
-/*						Print Messages Functions		*/
+/*				Print Messages Functions				*/
 /********************************************************/
 void		print_error(char *msg);
 
 /********************************************************/
 /*					Parse Functions						*/
 /********************************************************/
+void		check_filename(char *file);
+void		init_scene(t_scene *scene);
+void		validate_scene(t_scene *scene);
+char		*clean_line(char *line);
+void		parse_lines(int fd, char *line, t_scene *scene, int *obj_count);
+void		free_tokens(char **tokens);
+void		parse_vector(char *str, t_vec3 *vec);
+void		parse_norm_vector(char *str, t_vec3 *vec);
+t_scene		*parse_file(char *file, t_scene *scene);
+
+/********************************************************/
+/*					Parse Scene Functions				*/
+/********************************************************/
 void		parse_ambient(char *line, t_scene *scene);
 void		parse_camera(char *line, t_scene *scene);
 void		parse_light(char *line, t_scene *scene);
 void		parse_color(char *str, t_color *color);
+
+/********************************************************/
+/*					Parse Objects Functions				*/
+/********************************************************/
+void		parse_sphere(char *line, t_scene *scene, int *obj_count);
+void		parse_plane(char *line, t_scene *scene, int *obj_count);
+void		parse_cylinder(char *line, t_scene *scene, int *obj_count);
 
 /********************************************************/
 /*					Vector Functions					*/

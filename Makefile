@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
+#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/05/17 18:40:38 by myuen            ###   ########.fr        #
+#    Updated: 2025/06/05 15:10:09 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,15 @@ LIBFT_DIR	= ./libft
 GNL_DIR		= ./ft_gnl
 MLX_DIR		= ./mlx_linux
 OBJ_DIR		= ./obj
+
+# Condition
+ifeq (${UNAME_S}, Linux)
+    MLXFLAGS = -L${MLX_DIR} -lmlx -L/usr/lib/X11 -lXext -lX11 -lm -lz
+    INCLUDES = -I/usr/include -I${MLX_DIR}
+else
+	MLXFLAGS = -L${MLX_DIR} -lmlx_Darwin -L/opt/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+    INCLUDES = -I/opt/X11/include -I${MLX_DIR}
+endif
 
 # Library Names
 LIBFT		= $(LIBFT_DIR)/libft.a
@@ -37,12 +46,12 @@ SRCS		= ft_fractol.c ft_events.c ft_draw.c ft_zoom.c \
 				ft_fractol_utils.c ft_pan.c ft_color.c ft_message.c\
 				ft_mandelbrot.c ft_julia.c ft_complex.c ft_atof.c \
 				ft_process_fractal.c ft_tricorn.c
-				
+
 BONUS_SRCS	= ft_fractol_bonus.c ft_events.c ft_draw.c ft_zoom.c \
 				ft_fractol_utils.c ft_pan.c ft_color.c ft_message.c\
 				ft_mandelbrot.c ft_julia.c ft_complex.c ft_atof.c \
 				ft_process_fractal.c ft_tricorn.c
-			
+
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 BONUS_OBJS	= $(addprefix $(OBJ_DIR)/, $(BONUS_SRCS:.c=.o))
 
@@ -53,7 +62,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(GNL) $(MLX) $(OBJ_DIR) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-	
+
 bonus: $(BONUS_NAME)
 
 $(BONUS_NAME): $(LIBFT) $(GNL) $(MLX) $(OBJ_DIR) $(BONUS_OBJS)
