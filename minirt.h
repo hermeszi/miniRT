@@ -224,6 +224,12 @@ void		parse_cylinder(char *line, t_scene *scene, int *obj_count);
 /*					Vector Functions					*/
 /********************************************************/
 double		vec3_length(t_vec3 v);
-t_vec3		vec3_norm(t_vec3 v)
+t_vec3		vec3_norm(t_vec3 v);
+t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_sub(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_multiply(t_vec3 v, double scalar);
+t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_new(double x, double y, double z);
+double		vec3_dot(t_vec3 v1, t_vec3 v2);
 
 #endif
