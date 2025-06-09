@@ -10,38 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_fractol.h"
+#include "ft_minirt.h"
 
-void	ft_draw_pixel(t_data *data, int x, int y, int color)
+void	set_pixel(t_display *data, int x, int y, int color)
 {
 	int	pixel_offset;
 
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	if (x >= 0 && x < data->width && y >= 0 && y < data->height)
 	{
-		pixel_offset = (y * data->size_line) + (x * (data->bits_per_pixel / 8));
+		pixel_offset = (y * data->line_len) + (x * (data->bpp / 8));
 		*(unsigned int *)(data->img_data + pixel_offset) = color;
 	}
 	else
-		perror("pixel out of bound");
+		perror("pixel out of bound\n");
 }
 
-void	ft_redraw(t_data *data)
-{
-	printf("-->REDRAW<--\n");
-}
-
-void	ft_clear_image(t_window *data)
+void	clear_image(t_display *data)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < HEIGHT)
+	while (y < WIN_HEIGHT)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < WIN_WIDTH)
 		{
-			ft_draw_pixel(data, x, y, COLOR_BLACK);
+			set_pixel(data, x, y, COLOR_BLACK);
 			x++;
 		}
 		y++;

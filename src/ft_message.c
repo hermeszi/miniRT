@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_fractol.h"
+#include "ft_minirt.h"
 
-
+void	print_error(char *message)
+{
+	write(2, "Error\n", 6);
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
+}
