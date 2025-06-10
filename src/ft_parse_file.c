@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/10 11:53:26 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/10 12:08:06 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,5 @@ t_scene	*parse_file(char *file, t_scene *scene)
 	validate_scene(scene);
 	if (close(fd) == -1)
 		print_error ("Failed to close file");
+	return (scene);
 }
