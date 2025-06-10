@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:51:34 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/10 11:45:27 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/10 12:12:15 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parse_plane(char *line, t_scene *scene, int *obj_count)
 		print_error ("Invalid plane format");
 	if (*obj_count == 0)
 	{
-		scene->object_count = malloc(sizeof(t_object) * 100);
+		scene->objects = malloc(sizeof(t_object) * 100);
 		if (!scene->objects)
 			print_error ("Memory allocation failed for objects");
 	}
