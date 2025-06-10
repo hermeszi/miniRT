@@ -9,30 +9,33 @@
 #    Updated: 2025/06/10 18:44:40 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME        = miniRT
 BONUS_NAME  = miniRT_bonus
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
 
+# Get system name for platform detection
+UNAME_S     = $(shell uname -s)
+
 # Directories
 LIBFT_DIR   = ./libft
 GNL_DIR     = ./ft_gnl
-MLX_DIR     = ./mlx_linux
 OBJ_DIR     = ./obj
 SRC_DIR     = ./src
 
-# MLX Git URL
+# Platform-specific MLX settings
+MLX_DIR     = ./mlx_linux
 MLX_URL     = https://github.com/42paris/minilibx-linux.git
 
-# # Condition
-# ifeq (${UNAME_S}, Linux)
-#     MLXFLAGS = -L${MLX_DIR} -lmlx -L/usr/lib/X11 -lXext -lX11 -lm -lz
-#     INCLUDES = -I/usr/include -I${MLX_DIR}
-# else
-# 	MLXFLAGS = -L${MLX_DIR} -lmlx_Darwin -L/opt/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
-#     INCLUDES = -I/opt/X11/include -I${MLX_DIR}
-# endif
+ifeq ($(UNAME_S), Linux)
+    MLXFLAGS    = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm -lz
+    MLX_INCLUDES = -I/usr/include -I$(MLX_DIR)
+else ifeq ($(UNAME_S), Darwin)
+    MLXFLAGS    = -L$(MLX_DIR) -lmlx -L/opt/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+    MLX_INCLUDES = -I/opt/X11/include -I$(MLX_DIR)
+else
+    $(error Unsupported platform: $(UNAME_S))
+endif
 
 # Library Names
 LIBFT       = $(LIBFT_DIR)/libft.a
@@ -40,10 +43,10 @@ GNL         = $(GNL_DIR)/get_next_line.o $(GNL_DIR)/get_next_line_utils.o
 MLX         = $(MLX_DIR)/libmlx.a
 
 # Include paths
-INCLUDES    = -I. -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
+INCLUDES    = -I. -I$(LIBFT_DIR) -I$(GNL_DIR) $(MLX_INCLUDES)
 
 # Libraries
-LIBS        = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+LIBS        = -L$(LIBFT_DIR) -lft $(MLXFLAGS)
 
 # Source files
 SRCS = src/ft_minirt.c \
@@ -91,7 +94,7 @@ $(GNL):
 # Automatically clone & build MLX if missing
 $(MLX):
 	@if [ ! -d "$(MLX_DIR)" ]; then \
-		echo "Cloning MLX..."; \
+		echo "Cloning MLX for $(UNAME_S)..."; \
 		git clone $(MLX_URL) $(MLX_DIR); \
 	fi; \
 	if [ ! -f "$(MLX)" ]; then \
@@ -110,7 +113,7 @@ $(OBJ_DIR)/%.o: src/%.c $(HEADERS) | $(OBJ_DIR)
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(GNL_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	@if [ -d "$(MLX_DIR)" ]; then $(MAKE) -C $(MLX_DIR) clean; fi
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
