@@ -125,7 +125,7 @@ miniRT/
 ├── scenes/
 │   └── test_scene.rt
 ├── libft/
-├── ft_gnl
+├── ft_gnl/
 ├── mlx/
 ├── Makefile
 ├── README.md
