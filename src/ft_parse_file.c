@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_parse_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/06 11:40:11 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/10 11:53:26 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-
-void	print_error(char *msg)
-{
-	ft_putendl_fd(msg, 2);
-	exit (EXIT_FAILURE);
-}
+#include "ft_minirt.h"
 
 void	check_filename(char *file)
 {
@@ -25,7 +19,7 @@ void	check_filename(char *file)
 	len = ft_strlen(file);
 	if (len < 3 || file[len - 3] != '.' || file[len - 2] != 'r'
 		|| file [len - 1] != 't')
-		print_error ("Error\nInvalid file format");
+		print_error ("Invalid file format");
 }
 
 void	init_scene(t_scene *scene)
@@ -40,11 +34,11 @@ void	init_scene(t_scene *scene)
 void	validate_scene(t_scene *scene)
 {
 	if (scene->ambient.ratio < 0)
-		print_error("Error\nMissing ambient light");
+		print_error("Missing ambient light");
 	if (scene->camera.fov <= 0)
-		print_error("Error\nMissing camera");
+		print_error("Missing camera");
 	if (scene->light.brightness < 0)
-		print_error("Error\nMissing light source");
+		print_error("Missing light source");
 }
 
 char	*clean_line(char *line)
@@ -69,7 +63,7 @@ char	*clean_line(char *line)
 	}
 	clean = malloc(ft_strlen(line) + 1);
 	if (!clean)
-		print_error ("Error\nMemory allocation failed");
+		print_error ("Memory allocation failed");
 	y = 0;
 	while (line[x])
 	{
@@ -112,7 +106,7 @@ void	parse_lines(int fd, char *line, t_scene *scene, int *obj_count)
 		else if (!ft_strncmp(line, "cy ", 3))
 			parse_cylinder(line, scene, obj_count);
 		else
-			print_error("Error\nInvalid element identifier");
+			print_error("Invalid element identifier");
 		free (line);
 		line = get_next_line(fd);
 		if (line)
@@ -140,7 +134,7 @@ void	parse_vector(char *str, t_vec3 *vec)
 	{
 		if (coords)
 			free_tokens(coords);
-		print_error ("Error\nInvalid vector format (x,y,z)");
+		print_error ("Invalid vector format (x,y,z)");
 	}
 	vec->x = ft_atof(coords[0]);
 	vec->y = ft_atof(coords[1]);
@@ -152,7 +146,7 @@ void	parse_norm_vector(char *str, t_vec3 *vec)
 {
 	parse_vector(str, vec);
 	if (vec->x == 0 && vec->y == 0 && vec->z == 0)
-		print_error("Error\nDirection vector cannot be zero");
+		print_error("Direction vector cannot be zero");
 	*vec = vec3_norm(*vec);
 }
 
@@ -165,15 +159,15 @@ t_scene	*parse_file(char *file, t_scene *scene)
 	obj_count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		print_error("Error\nCould not open scene file");
+		print_error("Could not open scene file");
 	check_filename(file);
 	init_scene(scene);
 	line = get_next_line(fd);
 	if (!line)
-		print_error("Error\nEmpty file");
+		print_error("Empty file");
 	line = clean_line(line);
 	parse_lines(fd, line, scene, &obj_count);
 	validate_scene(scene);
 	if (close(fd) == -1)
-		print_error ("Error\nFailed to close file");
+		print_error ("Failed to close file");
 }

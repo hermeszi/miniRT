@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:04:10 by myuen             #+#    #+#             */
-/*   Updated: 2024/10/25 17:11:52 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/10 11:52:53 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_fractol.h"
+#include "ft_minirt.h"
 
 static double	parse_integer_part(const char **str)
 {

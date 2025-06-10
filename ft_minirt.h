@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                       :+:      :+:    :+:   */
+/*   ft_minirt.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myuen <myuen@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,23 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef FT_MINIRT_H
+# define FT_MINIRT_H
 
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"
 # include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
 # include <math.h>
 # include <string.h>
 # include <stdio.h>
 # include <errno.h>
-# include <fcntl.h>
 /********************************************************/
 /*									Constants			*/
 /********************************************************/
-# define WIDTH 800
-# define HEIGHT 600
+# define WIN_WIDTH 600
+# define WIN_HEIGHT 600
 /********************************************************/
 /*								Color Definitions		*/
 /********************************************************/
@@ -143,54 +144,76 @@ typedef struct	s_scene
     unsigned int	object_count;	// Number of objects in the scene
 } t_scene;
 
-typedef struct	s_window
+typedef struct	s_display
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
 	char	*img_data;
-	int		bits_per_pixel;
-	int		size_line;
+	int		bpp;
+	int		line_len;
 	int		endian;
-} t_window;
+	int		width;
+	int		height;
+} t_display;
+
+typedef struct	s_main
+{
+	t_scene		*scene;
+	t_display	*display;
+} t_main;
 
 /********************************************************/
-/*							Set up and Utilites			*/
+/*							Init						*/
 /********************************************************/
-int			init_display(void *ptr);
-int			ft_close(void *ptr);
-void		ft_map_screen_to_plane(t_data *data, int screen_x,
-				int screen_y, t_complex *z);
+void	init_app(t_main *app, char *filename);
+void	init_hooks(t_main *app);
+
 /********************************************************/
 /*						Events Handling Functions	 	*/
 /********************************************************/
-int			ft_key_press(int keycode, t_data *data);
-int			ft_mouse_event(int button, int x, int y, t_data *data);
-/********************************************************/
-/*						Zoom and Pan Functions			*/
-/********************************************************/
+void	render_scene(t_main *app);
+void	set_pixel(t_display *display, int x, int y, int color);
 
 /********************************************************/
-/*							Image Functions				*/
+/*							Render 						*/
 /********************************************************/
-void		ft_draw_pixel(t_data *data, int x, int y, int color);
-void		ft_redraw(t_data *data);
-void		ft_clear_image(t_data *data);
+// t_scene	*parse_rt_file(char *filename);
+// void	parse_ambient(char *line, t_ambient *ambient);
+// void	parse_camera(char *line, t_camera *camera);
+// void	parse_light(char *line, t_light *light);
+// void	parse_sphere(char *line, t_scene *scene);
+// void	parse_plane(char *line, t_scene *scene);
+// void	parse_cylinder(char *line, t_scene *scene);
+
 /********************************************************/
-/*							Color Functions				*/
+/*							Utilites					*/
 /********************************************************/
-int			ft_get_color(t_data *data, int iterations, int max_iter);
-void		ft_shift_color(int *color, int *color_index);
+int		rgb_to_int(t_color c);
+
+/********************************************************/
+/*							Hooks						*/
+/********************************************************/
+int		key_hook(int keycode, t_main *app);
+int		mouse_hook(int button, int x, int y, t_main *app);
+int		close_hook(t_main *app);
+
+/********************************************************/
+/*							Frees						*/
+/********************************************************/
+void	free_scene(t_scene *scene);
+void	free_all(t_main *app);
 
 /********************************************************/
 /*							LIBFT Functions				*/
 /********************************************************/
-double		ft_atof(const char *str);
-int			ft_isvalid_float_str(const char *str);
+int	ft_isvalid_float_str(const char *str);
+double	ft_atof(const char *str);
+
 /********************************************************/
-/*				Print Messages Functions				*/
+/*						Print Messages Functions		*/
 /********************************************************/
-void		print_error(char *msg);
+void	print_error(char *msg);
 
 /********************************************************/
 /*					Parse Functions						*/

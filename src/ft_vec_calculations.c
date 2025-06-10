@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_cal.c                                          :+:      :+:    :+:   */
+/*   ft_vec_calculations.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 14:39:32 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/06 11:33:15 by jngew            ###   ########.fr       */
+/*   Created: 2025/06/10 11:44:49 by jngew             #+#    #+#             */
+/*   Updated: 2025/06/10 11:44:54 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "ft_minirt.h"
 
 double	vec3_length(t_vec3 v)
 {
@@ -35,7 +35,7 @@ t_vec3	vec3_norm(t_vec3 v)
 
 	length = vec3_length(v);
 	if (length == 0)
-		print_error ("Error\nCannot normalize zero vector");
+		print_error ("Cannot normalize zero vector");
 	norm.x = v.x / length;
 	norm.y = v.y / length;
 	norm.z = v.z / length;

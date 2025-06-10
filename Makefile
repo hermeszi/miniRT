@@ -3,23 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
+#    By: <myuen@student.42singapore.sg>		        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/05 15:10:09 by jngew            ###   ########.fr        #
+#    Updated: 2025/06/10 10:41:55 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= fractol
-BONUS_NAME	= fractol_bonus
-CC		= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+NAME = miniRT
+BONUS_NAME = miniRT_bonus
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 
 # Directories
-LIBFT_DIR	= ./libft
-GNL_DIR		= ./ft_gnl
-MLX_DIR		= ./mlx_linux
-OBJ_DIR		= ./obj
+LIBFT_DIR = ./libft
+GNL_DIR = ./ft_gnl
+MLX_DIR = ./mlx_linux
+OBJ_DIR = ./obj
+SRC_DIR = ./src
 
 # Condition
 ifeq (${UNAME_S}, Linux)
@@ -31,42 +32,49 @@ else
 endif
 
 # Library Names
-LIBFT		= $(LIBFT_DIR)/libft.a
-GNL			= $(GNL_DIR)/get_next_line.o $(GNL_DIR)/get_next_line_utils.o
-MLX			= $(MLX_DIR)/libmlx.a
+LIBFT = $(LIBFT_DIR)/libft.a
+GNL = $(GNL_DIR)/get_next_line.o $(GNL_DIR)/get_next_line_utils.o
+MLX = $(MLX_DIR)/libmlx.a
 
 # Include paths
-INCLUDES	= -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
+INCLUDES = -I. -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
 
 # Libraries
-LIBS		= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # Source files
-SRCS		= ft_fractol.c ft_events.c ft_draw.c ft_zoom.c \
-				ft_fractol_utils.c ft_pan.c ft_color.c ft_message.c\
-				ft_mandelbrot.c ft_julia.c ft_complex.c ft_atof.c \
-				ft_process_fractal.c ft_tricorn.c
+SRCS = src/ft_minirt.c \
+	src/ft_init_app.c \
+	src/ft_hooks.c \
+	src/ft_free_all.c \
+	src/ft_draw.c \
+	src/ft_render.c \
+	src/ft_parse_file.c \
+	src/ft_parse_objects.c \
+	src/ft_parse_scene.c \
+	src/ft_minirt_utils.c \
+	src/ft_message.c \
+	src/ft_atof.c \
+	src/ft_vec_calculations.c
 
-BONUS_SRCS	= ft_fractol_bonus.c ft_events.c ft_draw.c ft_zoom.c \
-				ft_fractol_utils.c ft_pan.c ft_color.c ft_message.c\
-				ft_mandelbrot.c ft_julia.c ft_complex.c ft_atof.c \
-				ft_process_fractal.c ft_tricorn.c
+BONUS_SRCS =
 
-OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-BONUS_OBJS	= $(addprefix $(OBJ_DIR)/, $(BONUS_SRCS:.c=.o))
+# Object files (moved to obj/ directory)
+OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
+BONUS_OBJS = $(BONUS_SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 # Header files
-HEADERS		= ft_fractol.h
+HEADERS = ft_minirt.h
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(GNL) $(MLX) $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(GNL) $(LIBS) -o $(NAME)
 
 bonus: $(BONUS_NAME)
 
 $(BONUS_NAME): $(LIBFT) $(GNL) $(MLX) $(OBJ_DIR) $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBS) -o $(BONUS_NAME)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(GNL) $(LIBS) -o $(BONUS_NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -80,7 +88,8 @@ $(MLX):
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
+# Compile .c files to .o files in obj/ directory
+$(OBJ_DIR)/%.o: src/%.c $(HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
