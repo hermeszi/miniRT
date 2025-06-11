@@ -6,10 +6,11 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/11 13:10:42 by jngew            ###   ########.fr        #
+#    Updated: 2025/06/11 14:30:29 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME		= miniRT
 BONUS_NAME  = miniRT_bonus
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
