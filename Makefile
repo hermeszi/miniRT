@@ -6,7 +6,7 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/11 14:30:29 by jngew            ###   ########.fr        #
+#    Updated: 2025/06/11 15:34:14 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRCS = src/ft_minirt.c \
        src/ft_minirt_utils.c \
        src/ft_message.c \
        src/ft_atof.c \
-       src/ft_vec_calculations.c
+       src/ft_vec_calculations.c \
+	   src/ft_vec_utils.c
 
 BONUS_SRCS =
 
@@ -110,6 +111,20 @@ $(OBJ_DIR):
 # Compile source files
 $(OBJ_DIR)/%.o: src/%.c $(HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# List all source files needed for the parser test
+TEST_PARSER_SRCS = src/test_parser.c src/ft_init_app.c src/ft_parse_file.c \
+                   src/ft_parse_scene.c src/ft_parse_objects.c \
+                   src/ft_parse_linked.c src/ft_atof.c src/ft_message.c \
+                   src/ft_free_all.c src/ft_minirt_utils.c src/ft_vec_calculations.c
+
+# Get object files by replacing .c with .o
+TEST_PARSER_OBJS = $(TEST_PARSER_SRCS:.c=.o)
+
+# Rule to build the tester
+test_parser: $(TEST_PARSER_OBJS)
+	$(MAKE) -C ./libft
+	$(CC) $(CFLAGS) -o $@ $(TEST_PARSER_OBJS) -L./libft -lft -lm
 
 # Cleaning
 clean:
