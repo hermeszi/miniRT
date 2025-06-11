@@ -3,13 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
+#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/10 18:44:40 by myuen            ###   ########.fr        #
+#    Updated: 2025/06/11 13:10:42 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME        = miniRT
+
 BONUS_NAME  = miniRT_bonus
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
@@ -56,6 +56,7 @@ SRCS = src/ft_minirt.c \
        src/ft_draw.c \
        src/ft_render.c \
        src/ft_parse_file.c \
+	   src/ft_parse_linked.c \
        src/ft_parse_objects.c \
        src/ft_parse_scene.c \
        src/ft_minirt_utils.c \
