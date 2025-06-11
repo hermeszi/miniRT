@@ -235,8 +235,8 @@ t_scene		*parse_file(char *file, t_scene *scene);
 /********************************************************/
 t_object	*last_obj(t_object *lst);
 int			num_of_obj(t_object *lst);
-void		object_add_end(t_object *lst, t_object *new);
-void		free_objects(t_objects *lst);
+void		object_add_end(t_object **lst, t_object *new);
+void		free_objects(t_object *lst);
 
 /********************************************************/
 /*					Parse Objects Functions				*/
