@@ -104,7 +104,7 @@ typedef struct	s_plane
 typedef struct	s_sphere
 {
 	t_vec3	center;		// Center coordinates
-	double	diameter;	// Sphere diameter
+	double	radius;		// Sphere radius
 	t_color	color;		// RGB (0-255)
 } t_sphere;
 
@@ -112,7 +112,7 @@ typedef struct	s_cylinder
 {
 	t_vec3	center;		// Center coordinates
 	t_vec3	axis;		// Normalized axis vector [-1,1]
-	double	diameter;	// Cylinder diameter
+	double	radius;		// Cylinder radius
 	double	height;		// Cylinder height
 	t_color	color;		// RGB (0-255)
 } t_cylinder;
@@ -133,6 +133,8 @@ typedef struct	s_object
         t_sphere	sphere;
         t_cylinder	cylinder;
     } data;
+	int				x;
+	struct s_object	*next;
 } t_object;
 
 typedef struct	s_scene
@@ -140,7 +142,7 @@ typedef struct	s_scene
     t_ambient		ambient;		// Ambient lighting (only one)
     t_camera		camera;			// Camera (only one)
     t_light			light;			// Light source (only one in mandatory part)
-    t_object		*objects;		// Array of objects (planes, spheres, cylinders)
+    t_object		*objects;		// Linked list of objects (planes, spheres, cylinders)
     unsigned int	object_count;	// Number of objects in the scene
 } t_scene;
 
@@ -229,12 +231,12 @@ void		parse_norm_vector(char *str, t_vec3 *vec);
 t_scene		*parse_file(char *file, t_scene *scene);
 
 /********************************************************/
-/*					Parse Scene Functions				*/
+/*				Parse Linked List Functions				*/
 /********************************************************/
-void		parse_ambient(char *line, t_scene *scene);
-void		parse_camera(char *line, t_scene *scene);
-void		parse_light(char *line, t_scene *scene);
-void		parse_color(char *str, t_color *color);
+t_object	*last_obj(t_object *lst);
+int			num_of_obj(t_object *lst);
+void		object_add_end(t_object *lst, t_object *new);
+void		free_objects(t_objects *lst);
 
 /********************************************************/
 /*					Parse Objects Functions				*/
@@ -242,6 +244,14 @@ void		parse_color(char *str, t_color *color);
 void		parse_sphere(char *line, t_scene *scene, int *obj_count);
 void		parse_plane(char *line, t_scene *scene, int *obj_count);
 void		parse_cylinder(char *line, t_scene *scene, int *obj_count);
+
+/********************************************************/
+/*					Parse Scene Functions				*/
+/********************************************************/
+void		parse_ambient(char *line, t_scene *scene);
+void		parse_camera(char *line, t_scene *scene);
+void		parse_light(char *line, t_scene *scene);
+void		parse_color(char *str, t_color *color);
 
 /********************************************************/
 /*					Vector Functions					*/
