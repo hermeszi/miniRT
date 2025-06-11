@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/11 11:33:19 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/11 17:28:55 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	free_scene(t_scene *scene)
 {
-	if (scene)
-	{
-		free_objects(scene->objects);
-		free (scene);
-	}
+	if (!scene)
+		return ;
+	free_objects(scene->objects);
+	scene->objects = NULL;
 }
 
 void	free_display(t_display *display)
@@ -39,8 +38,18 @@ void	free_display(t_display *display)
 
 void	free_all(t_main *app)
 {
+	if (!app)
+		return ;
 	if (app->scene)
+	{
 		free_scene(app->scene);
+		free (app->scene);
+		app->scene = NULL;
+	}
 	if (app->display)
+	{
 		free_display(app->display);
+		free (app->display);
+		app->display = NULL;
+	}
 }
