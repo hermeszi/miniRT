@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:51:34 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/11 11:32:24 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/11 13:05:51 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	parse_cylinder(char *line, t_scene *scene, int *obj_count)
 	parse_vector(tokens[1], &new_obj->data.cylinder.center);
 	parse_norm_vector(tokens[2], &new_obj->data.cylinder.axis);
 	new_obj->data.cylinder.radius = ft_atof(tokens[3]) / 2;
-	if (new_obj->data.cylinder.diameter <= 0)
+	if (new_obj->data.cylinder.radius <= 0)
 		print_error ("Cylinder radius must be positive");
 	new_obj->data.cylinder.height = ft_atof(tokens[4]);
 	if (new_obj->data.cylinder.height <= 0)
