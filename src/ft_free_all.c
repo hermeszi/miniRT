@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/11 17:28:55 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/11 18:13:20 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_scene(t_scene *scene)
 		return ;
 	free_objects(scene->objects);
 	scene->objects = NULL;
+	free(scene);
 }
 
 void	free_display(t_display *display)
@@ -43,13 +44,11 @@ void	free_all(t_main *app)
 	if (app->scene)
 	{
 		free_scene(app->scene);
-		free (app->scene);
 		app->scene = NULL;
 	}
 	if (app->display)
 	{
 		free_display(app->display);
-		free (app->display);
 		app->display = NULL;
 	}
 }
