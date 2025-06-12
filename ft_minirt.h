@@ -112,7 +112,7 @@ typedef struct	s_plane
 typedef struct	s_sphere
 {
 	t_vec3	center;		// Center coordinates
-	double	radius;		// Sphere radius
+	double	diameter;	// Sphere diameter
 	t_color	color;		// RGB (0-255)
 } t_sphere;
 
@@ -120,7 +120,7 @@ typedef struct	s_cylinder
 {
 	t_vec3	center;		// Center coordinates
 	t_vec3	axis;		// Normalized axis vector [-1,1]
-	double	radius;		// Cylinder radius
+	double	diameter;	// Cylinder diameter
 	double	height;		// Cylinder height
 	t_color	color;		// RGB (0-255)
 } t_cylinder;

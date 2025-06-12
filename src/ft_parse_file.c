@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 15:48:01 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 16:18:56 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,9 @@ t_scene	*parse_file(char *file)
 	char	*line;
 	t_scene	*scene;
 
-	scene = NULL;
+	scene = malloc(sizeof(t_scene));
+	if (!scene)
+		print_error_exit("Scene memory allocation failed");
 	obj_count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)

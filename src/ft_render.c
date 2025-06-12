@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 15:43:18 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 16:02:32 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void test_raytacing(t_main *app)
 	//t_color	pixel_color;
 	int			x;
 	int			y;
-	
+
 	y = 0;
 	while (y < app->display->height)
 	{
