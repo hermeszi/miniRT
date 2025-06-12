@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
+#    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/12 10:11:29 by jngew            ###   ########.fr        #
+#    Updated: 2025/06/12 15:10:46 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,9 @@ SRCS = src/ft_minirt.c \
        src/ft_atof.c \
        src/ft_vec_calculations.c \
 	   src/ft_vec_utils.c \
-	   src/ft_color.c
+	   src/ft_color.c \
+	   src/ft_viewport.c \
+	   src/ft_ray.c
 
 BONUS_SRCS =
 

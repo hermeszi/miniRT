@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/10 11:32:07 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/12 15:43:18 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,40 @@ static void	draw_test_layers_screen(t_display *display)
 		display->win_ptr, display->img_ptr, 0, 0);
 }
 
+static void test_raytacing(t_main *app)
+{
+	t_ray		ray;
+	t_vec3		viewport_point;
+	//t_color	pixel_color;
+	int			x;
+	int			y;
+	
+	y = 0;
+	while (y < app->display->height)
+	{
+		x = 0;
+		while (x < app->display->width)
+		{
+			viewport_point = pixel_to_viewport(x, y, app->viewport);
+			//printf("<x:%f, y:%f, z:%f> ", viewport_point.x, viewport_point.y, viewport_point.z);
+
+			ray = create_ray(vec3_new(0, 0, 0), viewport_point);
+
+			// Trace the ray and get pixel color
+			//pixel_color = trace_ray(ray, app->scene);
+
+			// Set the pixel
+			//set_pixel(app->display, x, y, rgb_to_int(pixel_color));
+
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+}
+
 void	render_scene(t_main *app)
 {
+	test_raytacing(app);
     draw_test_layers_screen(app->display);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minirt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/10 11:58:06 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/12 15:26:53 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	check_args(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		print_error("Usage: ./miniRT <scene.rt>");
+		print_error_exit("Usage: ./miniRT <scene.rt>");
 		return ;
 	}
 	len = ft_strlen(argv[1]);
 	if (len < 4 || ft_strncmp(argv[1] + len - 3, ".rt", 3) != 0)
 	{
-		print_error("Invalid file extension. Use .rt");
+		print_error_exit("Invalid file extension. Use .rt");
 		return ;
 	}
 }

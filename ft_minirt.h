@@ -26,8 +26,9 @@
 /********************************************************/
 /*									Constants			*/
 /********************************************************/
-# define WIN_WIDTH 600
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 200
+# define WIN_HEIGHT 200
+# define VIEWPORT_DISTANCE 1.0
 /********************************************************/
 /*								Color Definitions		*/
 /********************************************************/
@@ -60,6 +61,13 @@
 /********************************************************/
 /*									Structures			*/
 /********************************************************/
+typedef enum	e_obj_type
+{
+    OBJ_PLANE,
+    OBJ_SPHERE,
+    OBJ_CYLINDER
+} t_obj_type;
+
 typedef struct	s_vec3
 {
 	double	x;
@@ -117,13 +125,6 @@ typedef struct	s_cylinder
 	t_color	color;		// RGB (0-255)
 } t_cylinder;
 
-typedef enum	e_obj_type
-{
-    OBJ_PLANE,
-    OBJ_SPHERE,
-    OBJ_CYLINDER
-} t_obj_type;
-
 typedef struct	s_object
 {
     t_obj_type	type;
@@ -159,12 +160,6 @@ typedef struct	s_display
 	int		height;
 } t_display;
 
-typedef struct	s_main
-{
-	t_scene		*scene;
-	t_display	*display;
-} t_main;
-
 typedef struct	s_ray
 {
 	t_vec3		origin;
@@ -180,6 +175,20 @@ typedef struct s_hit
 	t_object	*object;	// A pointer to the specific object that was hit.
 }	t_hit;
 
+typedef struct	s_viewport //canvas
+{
+	double	width;		// Viewport width
+	double	height;     // Viewport height
+	double	distance;   // Distance from camera to viewport
+} t_viewport;
+
+typedef struct	s_main
+{
+	t_scene		*scene;
+	t_display	*display;
+	t_viewport	viewport;
+
+} t_main;
 
 /********************************************************/
 /*							Init						*/
@@ -196,18 +205,14 @@ void	set_pixel(t_display *display, int x, int y, int color);
 /********************************************************/
 /*							Render 						*/
 /********************************************************/
-// t_scene	*parse_rt_file(char *filename);
-// void	parse_ambient(char *line, t_ambient *ambient);
-// void	parse_camera(char *line, t_camera *camera);
-// void	parse_light(char *line, t_light *light);
-// void	parse_sphere(char *line, t_scene *scene);
-// void	parse_plane(char *line, t_scene *scene);
-// void	parse_cylinder(char *line, t_scene *scene);
+t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport);
+t_ray	create_ray(t_vec3 origin, t_vec3 direction);
 
 /********************************************************/
 /*							Utilites					*/
 /********************************************************/
 int		rgb_to_int(t_color c);
+double	degrees_to_radians(double degrees);
 
 /********************************************************/
 /*							Hooks						*/
@@ -231,7 +236,7 @@ double	ft_atof(const char *str);
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
-void	print_error(char *msg);
+void	print_error_exit(char *msg);
 
 /********************************************************/
 /*					Parse Functions						*/
@@ -244,7 +249,7 @@ void		parse_lines(int fd, char *line, t_scene *scene, int *obj_count);
 void		free_tokens(char **tokens);
 void		parse_vector(char *str, t_vec3 *vec);
 void		parse_norm_vector(char *str, t_vec3 *vec);
-t_scene		*parse_file(char *file, t_scene *scene);
+t_scene		*parse_file(char *file);
 
 /********************************************************/
 /*				Parse Linked List Functions				*/
@@ -287,7 +292,7 @@ t_color		color_mult(t_color c1, t_color c2);
 /*					Colour Functions					*/
 /********************************************************/
 t_color		int_to_rgb(const int r, const int g, const int b);
-t_color		color_add(t_color c1, t_color, c2);
+t_color		color_add(t_color c1, t_color c2);
 t_color		color_scale(t_color c, double factor);
 t_color		color_mult(t_color c1, t_color c2);
 t_color		calculate_shading(t_hit *hit, t_scene *scene, int in_shadow);

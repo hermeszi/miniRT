@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/11 18:13:20 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 15:37:50 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ void	free_all(t_main *app)
 		free_display(app->display);
 		app->display = NULL;
 	}
+	printf("freed all resources\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vec_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 15:11:45 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 10:26:06 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/12 15:26:53 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_vec3	vec3_norm(t_vec3 v)
 
 	length = vec3_length(v);
 	if (length == 0)
-		print_error ("Cannot normalize zero vector");
+		print_error_exit ("Cannot normalize zero vector");
 	norm.x = v.x / length;
 	norm.y = v.y / length;
 	norm.z = v.z / length;
