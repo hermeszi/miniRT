@@ -34,7 +34,6 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 	{
 		if (current->type == OBJ_SPHERE)
 		{
-			printf("0");
 			current_hit = intersect_sphere(ray, current->data.sphere);
 			if (current_hit.hit && current_hit.t < closest_hit.t)
 			{
@@ -43,11 +42,11 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 		}
 		else if (current->type == OBJ_PLANE)
 		{
-			printf("1");
+
 		}
 		else if (current->type == OBJ_CYLINDER)
 		{
-			printf("2");
+
 		}
 		current = current->next;
 	}
