@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 15:11:45 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 09:27:09 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/12 10:26:06 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,5 @@ t_vec3	vec3_mult_vec3(t_vec3 v1, t_vec3 v2)
 	res.x = v1.x * v2.x;
 	res.y = v1.y * v2.y;
 	res.z = v1.z * v2.z;
-	return (res);
-}
-
-t_color	color_mult(t_color c1, t_color c2)
-{
-	t_color	res;
-
-	res.r = (unsigned int)(((c1.r / 255.0) * (c2.r / 255.0)) * 255.0);
-	res.g = (unsigned int)(((c1.g / 255.0) * (c2.g / 255.0)) * 255.0);
-	res.b = (unsigned int)(((c1.b / 255.0) * (c2.b / 255.0)) * 255.0);
 	return (res);
 }

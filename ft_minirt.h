@@ -165,6 +165,22 @@ typedef struct	s_main
 	t_display	*display;
 } t_main;
 
+typedef struct	s_ray
+{
+	t_vec3		origin;
+	t_vec3		direction;
+}	t_ray;
+
+typedef struct s_hit
+{
+	int			hit;		// A boolean flag: 1 if there was a hit, 0 otherwise.
+	double		t;			// The distance from the ray's origin to the hit point.
+	t_vec3		point;		// The (x, y, z) coordinates of the intersection point.
+	t_vec3		normal;		// The surface normal vector at the hit point.
+	t_object	*object;	// A pointer to the specific object that was hit.
+}	t_hit;
+
+
 /********************************************************/
 /*							Init						*/
 /********************************************************/
@@ -266,5 +282,14 @@ t_vec3		vec3_new(double x, double y, double z);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_mult_vec3(t_vec3 v1, t_vec3 v2);
 t_color		color_mult(t_color c1, t_color c2);
+
+/********************************************************/
+/*					Colour Functions					*/
+/********************************************************/
+t_color		int_to_rgb(const int r, const int g, const int b);
+t_color		color_add(t_color c1, t_color, c2);
+t_color		color_scale(t_color c, double factor);
+t_color		color_mult(t_color c1, t_color c2);
+t_color		calculate_shading(t_hit *hit, t_scene *scene, int in_shadow);
 
 #endif

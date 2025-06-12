@@ -6,7 +6,7 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/11 17:35:45 by jngew            ###   ########.fr        #
+#    Updated: 2025/06/12 10:11:29 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SRCS = src/ft_minirt.c \
        src/ft_message.c \
        src/ft_atof.c \
        src/ft_vec_calculations.c \
-	   src/ft_vec_utils.c
+	   src/ft_vec_utils.c \
+	   src/ft_color.c
 
 BONUS_SRCS =
 
