@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 15:26:53 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 19:22:08 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parse_camera(char *line, t_scene *scene)
 	parse_vector(tokens[1], &scene->camera.position);
 	parse_norm_vector(tokens[2], &scene->camera.orientation);
 	scene->camera.fov = ft_atoi(tokens[3]);
-	if (scene->camera.fov <= 0 || scene->camera.fov >= 180)
+	if (scene->camera.fov < 0 || scene->camera.fov > 180)
 		print_error_exit("Camera FOV must be between 0 and 180");
 	free_tokens(tokens);
 }

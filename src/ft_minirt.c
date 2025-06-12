@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 17:06:43 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 19:18:56 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,18 @@ int	main(int argc, char *argv[])
 	t_main	app;
 
 	check_args(argc, argv);
-	init_app(&app, argv[1]);
-	print_scene_info(app.scene);
-	render_scene(&app);
+	if (init_app(&app, argv[1]))
+	{
+		clear_image(app.display);
+		mlx_put_image_to_window(app.display->mlx_ptr,
+			app.display->win_ptr, app.display->img_ptr, 0, 0);
+	}
+	else
+	{
+		print_scene_info(app.scene);
+		render_scene(&app);
+	}
+	printf("miniRT app init\n");
 	init_hooks(&app);
 	mlx_loop(app.display->mlx_ptr);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 16:43:11 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 20:21:14 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,34 @@ static void	draw_test_layers_screen(t_display *display)
 // 	}
 // }
 
+void	display_scene(t_main *app)
+{
+	int		x;
+	int		y;
+	//t_ray	ray;
+	t_color	color = hex_to_rgb(COLOR_GREY);
+
+	y = 0;
+	while (y < app->display->height)
+	{
+		x = 0;
+		while (x < app->display->width)
+		{
+			set_pixel(app->display, x, y, rgb_to_int(color));
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(app->display->mlx_ptr, app->display->win_ptr,
+		app->display->img_ptr, 0, 0);
+}
+
 void	render_scene(t_main *app)
 {
+
+	if (!app || !app->display || !app->scene)
+		return ;
 	//test_raytacing(app);
     draw_test_layers_screen(app->display);
+	display_scene(app);
 }

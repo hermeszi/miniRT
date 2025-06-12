@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 16:18:56 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/12 20:10:06 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_scene(t_scene *scene)
 	scene->ambient.ratio = -1.0;
 	scene->camera.fov = -1;
 	scene->light.brightness = -1.0;
+	scene->background = hex_to_rgb(COLOR_WHITE);
 	scene->object_count = 0;
 	scene->objects = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 17:07:30 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 19:15:06 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 
 	if (fov_deg <= 0.0 || fov_deg >= 180.0)
 	{
-		perror("Viewport: Invalid FOV - must be between (0, 180) degrees.");
-		return (1);
+		printf("Viewport: FOV should ideally be BETWEEN 0.0 and 180.0 degrees.");
+		return (2);
 	}
 	if (width <= 0 || height <= 0)
 	{
@@ -75,8 +75,10 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 	return (0);
 }
 
-void	init_app(t_main *app, char *filename)
+int	init_app(t_main *app, char *filename)
 {
+	int	viewpoint_status;
+	
 	app->display = malloc(sizeof(t_display));
 	if (!app->display || init_display_struct(app->display)
 		|| init_screen_mlx(app->display))
@@ -85,11 +87,13 @@ void	init_app(t_main *app, char *filename)
 		print_error_exit("Failed to initialize display.");
 	}
 	app->scene = parse_file(filename);
-	if (init_viewport(&app->viewport, app->scene->camera.fov, \
-	app->display->width, app->display->height))
+	viewpoint_status = init_viewport(&app->viewport, app->scene->camera.fov, \
+			app->display->width, app->display->height);
+	if (viewpoint_status == 1)
 	{
 		free_all(app);
 		print_error_exit("Failed to initialize viewport.");
 	}
 	printf("miniRT app init\n");
+	return(viewpoint_status);
 }

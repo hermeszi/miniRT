@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:51:34 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 16:09:35 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/12 20:04:31 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	parse_sphere(char *line, t_scene *scene, int *obj_count)
 	new_obj->data.sphere.diameter = ft_atof(tokens[2]);
 	if (new_obj->data.sphere.diameter <= 0)
 		print_error_exit ("Sphere diameter must be positive");
+	new_obj->data.sphere.radius = new_obj->data.sphere.diameter / 2;
 	parse_color(tokens[3], &new_obj->data.sphere.color);
 	new_obj->x = *obj_count;
 	(*obj_count)++;

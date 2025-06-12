@@ -113,6 +113,7 @@ typedef struct	s_sphere
 {
 	t_vec3	center;		// Center coordinates
 	double	diameter;	// Sphere diameter
+	double	radius;
 	t_color	color;		// RGB (0-255)
 } t_sphere;
 
@@ -144,6 +145,7 @@ typedef struct	s_scene
     t_camera		camera;			// Camera (only one)
     t_light			light;			// Light source (only one in mandatory part)
     t_object		*objects;		// Linked list of objects (planes, spheres, cylinders)
+	t_color			background;
     unsigned int	object_count;	// Number of objects in the scene
 } t_scene;
 
@@ -172,6 +174,7 @@ typedef struct s_hit
 	double		t;			// The distance from the ray's origin to the hit point.
 	t_vec3		point;		// The (x, y, z) coordinates of the intersection point.
 	t_vec3		normal;		// The surface normal vector at the hit point.
+	t_color		color;
 	t_object	*object;	// A pointer to the specific object that was hit.
 }	t_hit;
 
@@ -193,18 +196,20 @@ typedef struct	s_main
 /********************************************************/
 /*							Init						*/
 /********************************************************/
-void	init_app(t_main *app, char *filename);
+int		init_app(t_main *app, char *filename);
 void	init_hooks(t_main *app);
 
 /********************************************************/
-/*						Events Handling Functions	 	*/
+/*						Draw Functions				 	*/
 /********************************************************/
-void	render_scene(t_main *app);
 void	set_pixel(t_display *display, int x, int y, int color);
+void	clear_image(t_display *data);
 
 /********************************************************/
 /*							Render 						*/
 /********************************************************/
+void	render_scene(t_main *app);
+void	display_scene(t_main *app);
 t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport);
 t_ray	create_ray(t_vec3 origin, t_vec3 direction);
 
@@ -212,6 +217,7 @@ t_ray	create_ray(t_vec3 origin, t_vec3 direction);
 /*							Utilites					*/
 /********************************************************/
 int		rgb_to_int(t_color c);
+t_color	hex_to_rgb(int hex);
 double	degrees_to_radians(double degrees);
 
 /********************************************************/
@@ -230,7 +236,7 @@ void	free_all(t_main *app);
 /********************************************************/
 /*							LIBFT Functions				*/
 /********************************************************/
-int	ft_isvalid_float_str(const char *str);
+int		ft_isvalid_float_str(const char *str);
 double	ft_atof(const char *str);
 
 /********************************************************/
