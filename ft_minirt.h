@@ -264,5 +264,7 @@ t_vec3		vec3_multiply(t_vec3 v, double scalar);
 t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_new(double x, double y, double z);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_mult_vec3(t_vec3 v1, t_vec3 v2);
+t_color		color_mult(t_color c1, t_color c2);
 
 #endif
