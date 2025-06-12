@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 15:26:53 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 17:06:43 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char *argv[])
 
 	check_args(argc, argv);
 	init_app(&app, argv[1]);
+	print_scene_info(app.scene);
 	render_scene(&app);
 	init_hooks(&app);
 	mlx_loop(app.display->mlx_ptr);

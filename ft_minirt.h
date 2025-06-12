@@ -237,6 +237,9 @@ double	ft_atof(const char *str);
 /*						Print Messages Functions		*/
 /********************************************************/
 void	print_error_exit(char *msg);
+void	print_color(t_color c);
+void	print_vec3(t_vec3 v);
+void	print_scene_info(t_scene *scene);
 
 /********************************************************/
 /*					Parse Functions						*/

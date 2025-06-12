@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/11 20:36:26 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/12 15:53:24 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,25 @@ t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport)
 
 	return (viewport_point);
 }
+
+/*
+Pixel-to-Viewport Conversion
+
+Step 1: Normalize to [0,1] range
+u = screen_x / screen_width
+v = screen_y / screen_height
+
+Step 2: Convert to 3D viewport coordinates
+viewport_x = (u - 0.5) × viewport_width
+viewport_y = (0.5 - v) × viewport_height    ← Note: Y flip
+viewport_z = viewport_distance
+
+Step 3: Viewport Dimensions calalation
+// Option A: Fixed Distance
+viewport.distance = 1.0;
+viewport.width = 2.0 * tan(fov_radians / 2.0);
+
+// Option B: Fixed Size
+viewport.width = 1.0;
+viewport.distance = 1.0 / (2.0 * tan(fov_radians / 2.0));
+*/
