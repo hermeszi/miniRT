@@ -27,7 +27,7 @@ void	init_scene(t_scene *scene)
 	scene->ambient.ratio = -1.0;
 	scene->camera.fov = -1;
 	scene->light.brightness = -1.0;
-	scene->background = hex_to_rgb(COLOR_WHITE);
+	scene->background = hex_to_rgb(BACKGROUND_COLOR);
 	scene->object_count = 0;
 	scene->objects = NULL;
 }

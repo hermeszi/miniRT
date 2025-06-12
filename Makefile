@@ -68,7 +68,8 @@ SRCS = src/ft_minirt.c \
 	   src/ft_color.c \
 	   src/ft_viewport.c \
 	   src/ft_ray.c \
-	   src/ft_print_scene_info.c
+	   src/ft_print_scene_info.c \
+	   src/ft_intersect_sphere.c
 
 BONUS_SRCS =
 

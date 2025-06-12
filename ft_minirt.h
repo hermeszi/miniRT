@@ -26,9 +26,10 @@
 /********************************************************/
 /*									Constants			*/
 /********************************************************/
-# define WIN_WIDTH 200
-# define WIN_HEIGHT 200
+# define WIN_WIDTH 400
+# define WIN_HEIGHT 300
 # define VIEWPORT_DISTANCE 1.0
+# define BACKGROUND_COLOR 0x00FFFFFF
 /********************************************************/
 /*								Color Definitions		*/
 /********************************************************/
@@ -200,18 +201,24 @@ int		init_app(t_main *app, char *filename);
 void	init_hooks(t_main *app);
 
 /********************************************************/
-/*						Draw Functions				 	*/
+/*						Draw MLX Functions			 	*/
 /********************************************************/
 void	set_pixel(t_display *display, int x, int y, int color);
 void	clear_image(t_display *data);
 
 /********************************************************/
+/*						Intercept Objects				*/
+/********************************************************/
+t_hit	intersect_sphere(t_ray ray, t_sphere sphere);
+
+/********************************************************/
 /*							Render 						*/
 /********************************************************/
 void	render_scene(t_main *app);
-void	display_scene(t_main *app);
+void	draw_scene(t_main *app);
 t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport);
 t_ray	create_ray(t_vec3 origin, t_vec3 direction);
+t_color	trace_ray(t_ray ray, t_scene *scene);
 
 /********************************************************/
 /*							Utilites					*/
