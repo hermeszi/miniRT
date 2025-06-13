@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/10 11:27:07 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/13 16:57:44 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	init_hooks(t_main *app)
 	mlx_key_hook(app->display->win_ptr, key_hook, app);
 	mlx_mouse_hook(app->display->win_ptr, mouse_hook, app);
 	mlx_hook(app->display->win_ptr, 17, 0, close_hook, app);
+	printf("event hooks set\n");
 }

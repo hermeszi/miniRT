@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 19:18:56 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/13 16:50:31 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,37 @@ static void	check_args(int argc, char **argv)
 		return ;
 	}
 }
+static void show_scene(t_main *app, int result)
+{
+	print_scene_info(app->scene);
+	if (!result)
+		render_scene(app);
+	else if (result == 1)
+	{
+		free_all(app);
+		print_error_exit("Screen size is not computable");
+	}
+	else if (result == 2)
+	{
+		printf("The window is displaying a closed camera, or infinity.\n");
+		clear_image(app->display);
+		mlx_put_image_to_window(app->display->mlx_ptr,
+			app->display->win_ptr, app->display->img_ptr, 0, 0);
+	}
+	else
+	{
+		free_all(app);
+		print_error_exit("Display Error");
+	}
+}
 
 int	main(int argc, char *argv[])
 {
 	t_main	app;
 
 	check_args(argc, argv);
-	if (init_app(&app, argv[1]))
-	{
-		clear_image(app.display);
-		mlx_put_image_to_window(app.display->mlx_ptr,
-			app.display->win_ptr, app.display->img_ptr, 0, 0);
-	}
-	else
-	{
-		print_scene_info(app.scene);
-		render_scene(&app);
-	}
-	printf("miniRT app init\n");
+	show_scene(&app, init_app(&app, argv[1]));
 	init_hooks(&app);
 	mlx_loop(app.display->mlx_ptr);
-	return (0);
+	return (1);
 }

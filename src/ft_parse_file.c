@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 20:10:06 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/13 16:55:36 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	validate_scene(t_scene *scene)
 {
 	if (scene->ambient.ratio < 0)
 		print_error_exit("Missing ambient light");
-	if (scene->camera.fov <= 0)
+	if (scene->camera.fov < 0)
 		print_error_exit("Missing camera");
 	if (scene->light.brightness < 0)
 		print_error_exit("Missing light source");

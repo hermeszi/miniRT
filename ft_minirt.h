@@ -26,8 +26,8 @@
 /********************************************************/
 /*									Constants			*/
 /********************************************************/
-# define WIN_WIDTH 400
-# define WIN_HEIGHT 300
+# define WIN_WIDTH 450
+# define WIN_HEIGHT 450
 # define VIEWPORT_DISTANCE 1.0
 # define BACKGROUND_COLOR 0x00FFFFFF
 /********************************************************/

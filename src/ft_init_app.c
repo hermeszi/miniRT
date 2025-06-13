@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 19:15:06 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/13 16:54:22 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 
 	if (fov_deg <= 0.0 || fov_deg >= 180.0)
 	{
-		printf("Viewport: FOV should ideally be BETWEEN 0.0 and 180.0 degrees.");
+		printf("Viewport: To see objects in the scene, FOV should be BETWEEN 0 and 180 degrees.\n");
 		return (2);
 	}
 	if (width <= 0 || height <= 0)
