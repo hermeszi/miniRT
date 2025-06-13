@@ -6,14 +6,14 @@
 #    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/12 16:53:51 by myuen            ###   ########.fr        #
+#    Updated: 2025/06/13 19:10:22 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= miniRT
 BONUS_NAME  = miniRT_bonus
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g
+CFLAGS      = -Wall -Wextra -Werror -g -pedantic
 
 # Get system name for platform detection
 UNAME_S     = $(shell uname -s)
