@@ -76,6 +76,11 @@ typedef struct	s_vec3
 	double	z;
 } t_vec3;
 
+typedef struct	s_mat3
+{
+	t_vec3 col[3];			// col[0]=right (x), col[1]=up (y), col[2]=forward (z)
+} t_mat3;
+
 typedef struct	s_color		// RGB color (0-255 range)
 {
 	unsigned int	r;
@@ -92,8 +97,11 @@ typedef struct	s_ambient
 typedef struct	s_camera
 {
 	t_vec3	position;	// Position coordinates
-	t_vec3	orientation;// Normalized direction vector [-1,1]
 	int		fov;		// Field of view in degrees [0,180]
+	t_vec3	orientation;// Normalized direction vector [-1,1]
+	t_vec3	up;
+	t_vec3	right;
+	t_mat3	rotation;
 } t_camera;
 
 typedef struct	s_light
@@ -136,7 +144,7 @@ typedef struct	s_object
         t_sphere	sphere;
         t_cylinder	cylinder;
     } data;
-	int				x;
+	int				x; //obj_id
 	struct s_object	*next;
 } t_object;
 

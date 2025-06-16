@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 20:12:13 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/16 19:08:06 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 ** Ray: P(t) = O + tD
 ** Sphere: |P - C|² = r²
 ** => a·t² + b·t + c = 0
+This step finds:
+    a: how long the ray's direction is (usually 1, since it's normalized)
+    b: how far the ray points toward the sphere
+    c: how far away the ray starts from the sphere (minus the radius)
 */
 static void	get_quadratic_coefficients(t_ray ray, t_sphere sphere,
 					t_vec3 *oc, double *a, double *b, double *c)
@@ -38,6 +42,13 @@ static void	get_quadratic_coefficients(t_ray ray, t_sphere sphere,
 /*
 ** Solves the quadratic equation using discriminant
 ** Returns the smallest valid t ≥ 1.0 (in front of camera), or -1 if no solution
+This tries to solve for t. 
+There are 3 cases:
+	Discriminant b² - 4ac
+	< 0		Miss – no intersection
+	= 0		Just touches the sphere
+	> 0		Hits the sphere in 2 spots (entry and exit)
+We only care about t ≥ 1.0, meaning the sphere is in front of the camera.
 */
 static double	solve_quadratic(double a, double b, double c)
 {
@@ -59,6 +70,10 @@ static double	solve_quadratic(double a, double b, double c)
 
 /*
 ** Populates the hit record with intersection point, normal, and color
+If hit, find the point
+	hit.point: where the ray touched the sphere
+	hit.normal: the direction the surface faces there
+	hit.color: the sphere’s color
 */
 static void	get_hit_record(t_hit *hit, t_ray ray, t_sphere sphere, double t)
 {

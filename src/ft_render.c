@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/13 19:11:11 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/16 19:57:59 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	draw_scene(t_main *app)
 
 	if (!app || !app->display || !app->scene)
 		return;
-
 	y = 0;
 	while (y < app->display->height)
 	{
@@ -49,7 +48,6 @@ void	render_scene(t_main *app)
 	draw_scene(app);
 	mlx_put_image_to_window(app->display->mlx_ptr, app->display->win_ptr, \
 			app->display->img_ptr, 0, 0);
-    // draw_test_layers_screen(app->display);
 }
 
 // static void	draw_test_layers_screen(t_display *display)
