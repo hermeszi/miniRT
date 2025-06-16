@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 18:54:41 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/16 18:47:01 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	print_objs(t_object *obj)
 		print_object(obj, index++);
 		obj = obj->next;
 	}
-	printf("\n--\n");
+	printf("--\n");
 }
 
 void	print_scene_info(t_scene *scene)
@@ -87,5 +87,5 @@ void	print_scene_info(t_scene *scene)
 	printf("\n--\n");
 	print_objs(scene->objects);
 	printf("Total Objs: %d\n", scene->object_count);
-	printf("== Scene Overview End ==\n\n");
+	printf("== Scene Overview End ==\n");
 }
