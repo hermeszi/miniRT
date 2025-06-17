@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/12 19:22:08 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/17 17:04:28 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	parse_camera(char *line, t_scene *scene)
 	scene->camera.fov = ft_atoi(tokens[3]);
 	if (scene->camera.fov < 0 || scene->camera.fov > 180)
 		print_error_exit("Camera FOV must be between 0 and 180");
+	build_camera_matrix(&scene->camera);
 	free_tokens(tokens);
 }
 

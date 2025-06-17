@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/13 16:55:36 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/17 16:27:59 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_filename(char *file)
 void	init_scene(t_scene *scene)
 {
 	scene->ambient.ratio = -1.0;
-	scene->camera.fov = -1;
+	init_camera(&scene->camera);
 	scene->light.brightness = -1.0;
 	scene->background = hex_to_rgb(BACKGROUND_COLOR);
 	scene->object_count = 0;

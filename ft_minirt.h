@@ -209,6 +209,18 @@ int		init_app(t_main *app, char *filename);
 void	init_hooks(t_main *app);
 
 /********************************************************/
+/*							Matrix						*/
+/********************************************************/
+t_vec3	mat3_multiply_vec3(t_mat3 m, t_vec3 v);
+t_mat3	mat3_from_vectors(t_vec3 right, t_vec3 up, t_vec3 forward);
+
+/********************************************************/
+/*							Camera						*/
+/********************************************************/
+void	init_camera(t_camera *camera);
+void	build_camera_matrix(t_camera *camera);
+
+/********************************************************/
 /*						Draw MLX Functions			 	*/
 /********************************************************/
 void	set_pixel(t_display *display, int x, int y, int color);
