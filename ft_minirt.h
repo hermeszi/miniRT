@@ -227,6 +227,7 @@ void	draw_scene(t_main *app);
 t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport);
 t_ray	create_ray(t_vec3 origin, t_vec3 direction);
 t_color	trace_ray(t_ray ray, t_scene *scene);
+t_color	get_hit_color(t_hit *closest_hit, t_scene *scene);
 
 /********************************************************/
 /*							Utilites					*/

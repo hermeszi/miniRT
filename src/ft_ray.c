@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 20:11:54 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/17 13:34:11 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,45 @@ t_ray	create_ray(t_vec3 origin, t_vec3 direction)
 	return (ray);
 }
 
+t_color	get_hit_color(t_hit *closest_hit, t_scene *scene)
+{
+	int			in_shadow;
+	double		light_dist;
+	t_ray		shadow_ray;
+	t_hit		shadow_hit;
+	t_object	*current;
+
+	in_shadow = 0;
+	shadow_ray.origin = vec3_add(closest_hit->point,
+		vec3_multiply(closest_hit->normal, 1e-4));
+	shadow_ray.direction = vec3_norm(vec3_sub(scene->light.position,
+		closest_hit->point));
+	light_dist = vec3_length(vec3_sub(scene->light.position,
+		closest_hit->point));
+	current = scene->objects;
+	while (current)
+	{
+		if (current == closest_hit->object)
+		{
+			current = current->next;
+			continue ;
+		}
+		if (current->type == OBJ_SPHERE)
+		{
+			shadow_hit = intersect_sphere(shadow_ray, current->data.sphere);
+			if (shadow_hit.hit && shadow_hit.t < light_dist)
+			{
+				in_shadow = 1;
+				break ;
+			}
+		}
+		// Add else-if blocks here for planes and cylinders
+		current = current->next;
+	}
+	return (calculate_shading(closest_hit, scene, in_shadow));
+}
+
+
 t_color	trace_ray(t_ray ray, t_scene *scene)
 {
 	t_object	*current;
@@ -29,6 +68,7 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 
 	closest_hit.hit = 0;
 	closest_hit.t = INFINITY;
+	closest_hit.object = NULL;
 	current = scene->objects;
 	while (current)
 	{
@@ -38,6 +78,7 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 			if (current_hit.hit && current_hit.t < closest_hit.t)
 			{
 				closest_hit = current_hit;
+				closest_hit.object = current;
 			}
 		}
 		else if (current->type == OBJ_PLANE)
@@ -51,6 +92,6 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 		current = current->next;
 	}
 	if (closest_hit.hit)
-		return (closest_hit.color);
+		return (get_hit_color(&closest_hit, scene));
 	return (scene->background);
 }
