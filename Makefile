@@ -6,7 +6,7 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/17 13:21:45 by jngew            ###   ########.fr        #
+#    Updated: 2025/06/17 13:44:14 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ SRCS = src/ft_minirt.c \
 	   src/ft_viewport.c \
 	   src/ft_ray.c \
 	   src/ft_print_scene_info.c \
-	   src/ft_intersect_sphere.c
+	   src/ft_intersect_sphere.c \
+	   src/ft_intersect_plane.c
 
 BONUS_SRCS =
 

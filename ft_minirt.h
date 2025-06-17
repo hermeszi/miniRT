@@ -218,6 +218,7 @@ void	clear_image(t_display *data);
 /*						Intercept Objects				*/
 /********************************************************/
 t_hit	intersect_sphere(t_ray ray, t_sphere sphere);
+t_hit	intersect_plane(t_ray ray, t_plane plane);
 
 /********************************************************/
 /*							Render 						*/

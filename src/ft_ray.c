@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/17 13:34:11 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/17 13:49:01 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,15 @@ t_color	get_hit_color(t_hit *closest_hit, t_scene *scene)
 				break ;
 			}
 		}
+		else if (current->type == OBJ_PLANE)
+		{
+			shadow_hit = intersect_plane(shadow_ray, current->data.plane);
+			if (shadow_hit.hit && shadow_hit.t < light_dist)
+			{
+				in_shadow = 1;
+				break ;
+			}
+		}
 		// Add else-if blocks here for planes and cylinders
 		current = current->next;
 	}
@@ -83,7 +92,12 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 		}
 		else if (current->type == OBJ_PLANE)
 		{
-
+			current_hit = intersect_plane(ray, current->data.plane);
+			if (current_hit.hit && current_hit.t < closest_hit.t)
+			{
+				closest_hit = current_hit;
+				closest_hit.object = current;
+			}
 		}
 		else if (current->type == OBJ_CYLINDER)
 		{
