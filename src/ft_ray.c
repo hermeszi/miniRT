@@ -12,12 +12,12 @@
 
 #include "ft_minirt.h"
 
-t_ray	create_ray(t_vec3 origin, t_vec3 direction)
+t_ray	create_ray(t_vec3 origin, t_vec3 vp_point)
 {
 	t_ray	ray;
 
 	ray.origin = origin;
-	ray.direction = vec3_norm(direction);
+	ray.direction = vec3_norm(vp_point);
 	return (ray);
 }
 

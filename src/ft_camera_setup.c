@@ -34,6 +34,7 @@ void	init_camera(t_camera *camera)
 void	build_camera_matrix(t_camera *camera)
 {
 	t_vec3	world_up;
+	t_vec3	world_right;
 	t_vec3	forward;
 	t_vec3	right;
 	t_vec3	up;
@@ -45,16 +46,19 @@ void	build_camera_matrix(t_camera *camera)
 	if (fabs(vec3_dot(forward, world_up)) > 0.99)
 	{
 		// When forward is parallel to world_up, use world_right instead
-		t_vec3 world_right = vec3_new(1, 0, 0);
-		right = vec3_norm(vec3_cross(forward, world_right));
+		world_right = vec3_new(1, 0, 0);
+		right = vec3_norm(vec3_cross(world_right, forward));
 	}
 	else
 	{
-		right = vec3_norm(vec3_cross(forward, world_up));
+		// Right = world_up X forward (right-hand rule)
+		right = vec3_norm(vec3_cross(world_up, forward)); 
 	}
+	printf("Camera right vector: (%.1f, %.1f, %.1f)\n", right.x, right.y, right.z);
 	
 	// Calculate true up vector (guarantees orthogonality)
-	up = vec3_cross(right, forward);
+	up = vec3_cross(forward, right);
+	printf("Camera up vector: (%.1f, %.1f, %.1f)\n", up.x, up.y, up.z);
 	
 	// Store the complete coordinate system
 	camera->right = right;

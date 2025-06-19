@@ -12,4 +12,11 @@
 
 #include "ft_minirt.h"
 
-
+/*
+** Transforms a viewport-space direction vector into world-space.
+** The transformation: world_dir = camera_matrix * viewport_dir
+*/
+t_vec3	camera_to_world_direction(t_camera *camera, t_vec3 viewport_dir)
+{
+	return (mat3_multiply_vec3(camera->rotation, viewport_dir));
+}

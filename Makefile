@@ -29,7 +29,7 @@ MLX_DIR     = ./mlx_linux
 MLX_URL     = https://github.com/42paris/minilibx-linux.git
 
 ifeq ($(UNAME_S), Linux)
-    MLXFLAGS    = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm -lz
+    MLXFLAGS    = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lz -lm
     MLX_INCLUDES = -I/usr/include -I$(MLX_DIR)
 else ifeq ($(UNAME_S), Darwin)
     MLXFLAGS    = -L$(MLX_DIR) -lmlx -L/opt/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit

@@ -29,7 +29,7 @@ void	draw_scene(t_main *app)
 		while (x < app->display->width)
 		{
 			vp_point = pixel_to_viewport(x, y, app->viewport);
-			ray = create_ray(app->scene->camera.position, vp_point);
+			ray = create_ray(app->scene->camera.position, camera_to_world_direction(&app->scene->camera, vp_point));
 			pixel_color = trace_ray(ray, app->scene);
 			set_pixel(app->display, x, y, rgb_to_int(pixel_color));
 			x++;

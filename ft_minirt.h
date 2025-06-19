@@ -219,6 +219,9 @@ t_mat3	mat3_from_vectors(t_vec3 right, t_vec3 up, t_vec3 forward);
 /********************************************************/
 void	init_camera(t_camera *camera);
 void	build_camera_matrix(t_camera *camera);
+t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport);
+t_ray	create_ray(t_vec3 origin, t_vec3 vp_point);
+t_vec3	camera_to_world_direction(t_camera *camera, t_vec3 viewport_dir);
 
 /********************************************************/
 /*						Draw MLX Functions			 	*/
@@ -237,8 +240,6 @@ t_hit	intersect_plane(t_ray ray, t_plane plane);
 /********************************************************/
 void	render_scene(t_main *app);
 void	draw_scene(t_main *app);
-t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport);
-t_ray	create_ray(t_vec3 origin, t_vec3 direction);
 t_color	trace_ray(t_ray ray, t_scene *scene);
 t_color	get_hit_color(t_hit *closest_hit, t_scene *scene);
 
