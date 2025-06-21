@@ -3,21 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/17 13:49:01 by jngew            ###   ########.fr       */
+/*   Updated: 2025/06/21 20:35:20 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-t_ray	create_ray(t_vec3 origin, t_vec3 vp_point)
+// t_ray	create_ray(t_vec3 origin, t_vec3 vp_point)
+// {
+// 	t_ray	ray;
+
+// 	ray.origin = origin;
+// 	ray.direction = vec3_norm(vp_point);
+// 	return (ray);
+// }
+
+t_ray create_ray(t_camera *camera, int pixel_x, int pixel_y)
 {
 	t_ray	ray;
+	t_vec3	viewport_dir;
+	t_vec3	world_dir;
 
-	ray.origin = origin;
-	ray.direction = vec3_norm(vp_point);
+	// Get normalized direction vector
+	viewport_dir = pixel_to_viewport(camera, pixel_x, pixel_y);
+	
+	// Transform to world space using camera matrix
+	world_dir = camera_to_world_direction(camera, viewport_dir);
+	
+	ray.origin = camera->position;
+	ray.direction = vec3_norm(world_dir);
+	
 	return (ray);
 }
 

@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/16 19:57:59 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/21 20:34:52 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	draw_scene(t_main *app)
 	int		x;
 	int		y;
 	t_ray	ray;
-	t_vec3	vp_point;
 	t_color	pixel_color;
 
 	if (!app || !app->display || !app->scene)
@@ -28,8 +27,8 @@ void	draw_scene(t_main *app)
 		x = 0;
 		while (x < app->display->width)
 		{
-			vp_point = pixel_to_viewport(x, y, app->viewport);
-			ray = create_ray(app->scene->camera.position, camera_to_world_direction(&app->scene->camera, vp_point));
+			//vp_point = pixel_to_viewport(app->viewport,x, y);
+			ray = create_ray(&app->scene->camera, x, y);
 			pixel_color = trace_ray(ray, app->scene);
 			set_pixel(app->display, x, y, rgb_to_int(pixel_color));
 			x++;
