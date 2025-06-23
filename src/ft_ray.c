@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/21 20:35:20 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/23 20:43:29 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,10 @@ t_ray create_ray(t_camera *camera, int pixel_x, int pixel_y)
 	t_vec3	viewport_dir;
 	t_vec3	world_dir;
 
-	// Get normalized direction vector
 	viewport_dir = pixel_to_viewport(camera, pixel_x, pixel_y);
-	
-	// Transform to world space using camera matrix
 	world_dir = camera_to_world_direction(camera, viewport_dir);
-	
 	ray.origin = camera->position;
 	ray.direction = vec3_norm(world_dir);
-	
 	return (ray);
 }
 

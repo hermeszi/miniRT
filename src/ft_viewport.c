@@ -6,37 +6,51 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/21 20:46:50 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/23 20:42:13 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-t_vec3 pixel_to_viewport(t_camera *camera, int screen_x, int screen_y)
+static double	calculate_viewport_scale(double fov_rad)
 {
-    t_vec3 viewport_dir;
-    double u, v;
-    double fov_rad, half_angle;
-    double angle_x, angle_y;
-    
-    // Convert to normalized coordinates [-0.5, +0.5]
-    u = ((double)screen_x / (double)WIN_WIDTH) - 0.5;
-    v = 0.5 - ((double)screen_y / (double)WIN_HEIGHT);
-    
-    // Calculate the half-angle of the FOV
-    fov_rad = degrees_to_radians(camera->fov);
-    half_angle = tan(fov_rad / 2.0);
-    
-    // Calculate the actual angles for this pixel
-    angle_x = u * half_angle * ((double)WIN_WIDTH / (double)WIN_HEIGHT);
-    angle_y = v * half_angle;
-    
-    // Create direction using tangent values (this is the key difference!)
-    viewport_dir.x = angle_x;
-    viewport_dir.y = angle_y;
-    viewport_dir.z = 1.0;
-    
-    return vec3_norm(viewport_dir);
+	return (tan(fov_rad / 2.0) * VIEWPORT_DISTANCE);
+}
+
+static double	normalized_to_viewport_x(double u, double viewport_scale)
+{
+	double	aspect_ratio;
+
+	aspect_ratio = (double)WIN_WIDTH / (double)WIN_HEIGHT;
+	return (u * viewport_scale * aspect_ratio);
+}
+
+static double	normalized_to_viewport_y(double v, double viewport_scale)
+{
+	return (v * viewport_scale);
+}
+
+static void	pixel_to_normalized(int screen_x, int screen_y, double *u, double *v)
+{
+	*u = ((double)screen_x / (double)WIN_WIDTH) - 0.5;
+	*v = 0.5 - ((double)screen_y / (double)WIN_HEIGHT);
+}
+
+t_vec3	pixel_to_viewport(t_camera *camera, int screen_x, int screen_y)
+{
+	t_vec3	viewport_dir;
+	double	u;
+	double	v;
+	double	viewport_scale;
+	double	fov_rad;
+
+	pixel_to_normalized(screen_x, screen_y, &u, &v);
+	fov_rad = degrees_to_radians(camera->fov);
+	viewport_scale = calculate_viewport_scale(fov_rad);
+	viewport_dir.x = normalized_to_viewport_x(u, viewport_scale);
+	viewport_dir.y = normalized_to_viewport_y(v, viewport_scale);
+	viewport_dir.z = VIEWPORT_DISTANCE;
+	return (vec3_norm(viewport_dir));
 }
 
 // t_vec3	pixel_to_viewport(int screen_x, int screen_y, t_viewport viewport)

@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/21 20:34:52 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/23 20:43:41 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	draw_scene(t_main *app)
 		x = 0;
 		while (x < app->display->width)
 		{
-			//vp_point = pixel_to_viewport(app->viewport,x, y);
 			ray = create_ray(&app->scene->camera, x, y);
 			pixel_color = trace_ray(ray, app->scene);
 			set_pixel(app->display, x, y, rgb_to_int(pixel_color));
