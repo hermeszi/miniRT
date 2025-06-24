@@ -21,8 +21,6 @@ void	set_pixel(t_display *data, int x, int y, int color)
 		pixel_offset = (y * data->line_len) + (x * (data->bpp / 8));
 		*(unsigned int *)(data->img_data + pixel_offset) = color;
 	}
-	else
-		perror("pixel out of bound\n");
 }
 
 void	clear_image(t_display *data)

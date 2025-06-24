@@ -6,29 +6,11 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/23 20:42:13 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/24 20:38:44 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
-
-static double	calculate_viewport_scale(double fov_rad)
-{
-	return (tan(fov_rad / 2.0) * VIEWPORT_DISTANCE);
-}
-
-static double	normalized_to_viewport_x(double u, double viewport_scale)
-{
-	double	aspect_ratio;
-
-	aspect_ratio = (double)WIN_WIDTH / (double)WIN_HEIGHT;
-	return (u * viewport_scale * aspect_ratio);
-}
-
-static double	normalized_to_viewport_y(double v, double viewport_scale)
-{
-	return (v * viewport_scale);
-}
 
 static void	pixel_to_normalized(int screen_x, int screen_y, double *u, double *v)
 {
@@ -36,20 +18,16 @@ static void	pixel_to_normalized(int screen_x, int screen_y, double *u, double *v
 	*v = 0.5 - ((double)screen_y / (double)WIN_HEIGHT);
 }
 
-t_vec3	pixel_to_viewport(t_camera *camera, int screen_x, int screen_y)
+t_vec3 pixel_to_viewport(t_viewport *viewport, int screen_x, int screen_y)
 {
 	t_vec3	viewport_dir;
 	double	u;
 	double	v;
-	double	viewport_scale;
-	double	fov_rad;
 
 	pixel_to_normalized(screen_x, screen_y, &u, &v);
-	fov_rad = degrees_to_radians(camera->fov);
-	viewport_scale = calculate_viewport_scale(fov_rad);
-	viewport_dir.x = normalized_to_viewport_x(u, viewport_scale);
-	viewport_dir.y = normalized_to_viewport_y(v, viewport_scale);
-	viewport_dir.z = VIEWPORT_DISTANCE;
+	viewport_dir.x = u * viewport->half_scale * viewport->aspect_ratio;
+	viewport_dir.y = v * viewport->half_scale;
+	viewport_dir.z = viewport->distance;
 	return (vec3_norm(viewport_dir));
 }
 

@@ -192,6 +192,9 @@ typedef struct	s_viewport //canvas
 	double	width;		// Viewport width
 	double	height;     // Viewport height
 	double	distance;   // Distance from camera to viewport
+	double	fov_rad;	
+	double	aspect_ratio; //width/height
+	double	half_scale;
 } t_viewport;
 
 typedef struct	s_main
@@ -219,8 +222,8 @@ t_mat3	mat3_from_vectors(t_vec3 right, t_vec3 up, t_vec3 forward);
 /********************************************************/
 void	init_camera(t_camera *camera);
 void	build_camera_matrix(t_camera *camera);
-t_vec3	pixel_to_viewport( t_camera *camera, int screen_x, int screen_y);
-t_ray	create_ray(t_camera *camera, int pixel_x, int pixel_y);
+t_vec3	pixel_to_viewport(t_viewport *viewport, int screen_x, int screen_y);
+t_ray	create_ray(t_camera *camera, t_viewport *viewport, int pixel_x, int pixel_y);
 t_vec3	camera_to_world_direction(t_camera *camera, t_vec3 viewport_dir);
 
 /********************************************************/

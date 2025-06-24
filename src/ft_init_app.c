@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/13 16:54:22 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/24 21:02:22 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ static int	init_screen_mlx(t_display *win)
 }
 static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 {
-	double	aspect_ratio;
-	double	fov_rad;
-
 	if (fov_deg <= 0.0 || fov_deg >= 180.0)
 	{
 		printf("Viewport: To see objects in the scene, FOV should be BETWEEN 0 and 180 degrees.\n");
@@ -67,11 +64,12 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 		perror("Viewport: Invalid screen size.");
 		return (1);
 	}
-	fov_rad = degrees_to_radians(fov_deg);
+	vp->fov_rad = degrees_to_radians(fov_deg);
 	vp->distance = VIEWPORT_DISTANCE;
-	vp->height = 2.0 * tan(fov_rad / 2.0);
-	aspect_ratio = (double)width / (double)height;
-	vp->width = vp->height * aspect_ratio;
+	vp->height = 2.0 * tan(vp->fov_rad / 2.0) * VIEWPORT_DISTANCE;
+	vp->aspect_ratio = (double)width / (double)height;
+	vp->width = vp->height * vp->aspect_ratio;
+	vp->half_scale = tan(vp->fov_rad / 2.0) * vp->distance;
 	return (0);
 }
 
@@ -79,6 +77,7 @@ int	init_app(t_main *app, char *filename)
 {
 	int	viewpoint_status;
 	
+	app->scene = parse_file(filename);
 	app->display = malloc(sizeof(t_display));
 	if (!app->display || init_display_struct(app->display)
 		|| init_screen_mlx(app->display))
@@ -86,7 +85,6 @@ int	init_app(t_main *app, char *filename)
 		free_all(app);
 		print_error_exit("Failed to initialize display.");
 	}
-	app->scene = parse_file(filename);
 	viewpoint_status = init_viewport(&app->viewport, app->scene->camera.fov, \
 			app->display->width, app->display->height);
 	if (viewpoint_status == 1)

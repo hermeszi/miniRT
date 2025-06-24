@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/17 16:27:59 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/24 21:00:47 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,10 @@ t_scene	*parse_file(char *file)
 	obj_count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
+	{
+		free(scene);
 		print_error_exit("Could not open scene file");
+	}
 	check_filename(file);
 	init_scene(scene);
 	line = get_next_line(fd);
