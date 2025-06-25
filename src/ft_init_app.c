@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/24 21:02:22 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/25 20:42:24 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 	}
 	vp->fov_rad = degrees_to_radians(fov_deg);
 	vp->distance = VIEWPORT_DISTANCE;
-	vp->height = 2.0 * tan(vp->fov_rad / 2.0) * VIEWPORT_DISTANCE;
+	vp->half_scale = tan(vp->fov_rad / 2.0) * vp->distance;
+	vp->height = 2.0 * vp->half_scale;
 	vp->aspect_ratio = (double)width / (double)height;
 	vp->width = vp->height * vp->aspect_ratio;
-	vp->half_scale = tan(vp->fov_rad / 2.0) * vp->distance;
 	return (0);
 }
 
