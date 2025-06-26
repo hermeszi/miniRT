@@ -92,6 +92,7 @@ int	init_app(t_main *app, char *filename)
 		free_all(app);
 		print_error_exit("Failed to initialize viewport.");
 	}
+	//app->scene->background = color_scale(app->scene->background, app->scene->ambient.ratio);
 	printf("miniRT app init\n");
 	return(viewpoint_status);
 }

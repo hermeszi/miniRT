@@ -21,6 +21,12 @@ t_ray create_ray(t_camera *camera, t_viewport *viewport, int pixel_x, int pixel_
 	viewport_dir = pixel_to_viewport(viewport, pixel_x, pixel_y);
 	world_dir = camera_to_world_direction(camera, viewport_dir);
 	ray.origin = camera->position;
-	ray.direction = vec3_norm(world_dir);
+	if (fabs(vec3_length(world_dir) - 1.0) > 1e-6)
+	{
+		printf("world_dir length: %f (not normalized)\n", vec3_length(world_dir));
+        ray.direction = vec3_norm(world_dir);
+	}
+    else
+		ray.direction = world_dir;
 	return (ray);
 }

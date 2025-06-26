@@ -78,7 +78,7 @@ t_hit	intersect_sphere(t_ray ray, t_sphere sphere)
 	hit.hit = 0;
 	hit.t = INFINITY;
 	q.oc = vec3_sub(ray.origin, sphere.center);
-	q.a = vec3_dot(ray.direction, ray.direction);
+	q.a = 1.0;
 	q.b = 2.0 * vec3_dot(q.oc, ray.direction);
 	q.c = vec3_dot(q.oc, q.oc) - (sphere.radius * sphere.radius);
 	q.t = solve_quadratic(q.a, q.b, q.c);
