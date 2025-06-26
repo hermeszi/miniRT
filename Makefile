@@ -6,7 +6,7 @@
 #    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/26 20:42:36 by myuen            ###   ########.fr        #
+#    Updated: 2025/06/26 21:07:31 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS = src/ft_minirt.c \
 	   src/ft_matrix_utils.c \
 	   src/ft_camera_setup.c \
 	   src/ft_camera_transform.c \
+	   src/ft_point_light.c \
 	   src/ft_shadow.c
 
 BONUS_SRCS =

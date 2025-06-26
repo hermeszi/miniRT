@@ -28,8 +28,11 @@
 /********************************************************/
 # define WIN_WIDTH 600
 # define WIN_HEIGHT 400
-# define VIEWPORT_DISTANCE 1.0
+# define VIEWPORT_DISTANCE 1.2
 # define BACKGROUND_COLOR 0x00FFFFFF
+# define ATTENUATION_CONSTANT 1.0
+# define ATTENUATION_LINEAR 0.03
+# define ATTENUATION_QUADRATIC 0.003
 /********************************************************/
 /*								Color Definitions		*/
 /********************************************************/
@@ -248,6 +251,11 @@ t_hit	intersect_sphere(t_ray ray, t_sphere sphere);
 t_hit	intersect_plane(t_ray ray, t_plane plane);
 
 /********************************************************/
+/*						Lights							*/
+/********************************************************/
+t_color	calculate_point_light(t_hit *hit, t_scene *scene);
+
+/********************************************************/
 /*							Render 						*/
 /********************************************************/
 void	render_scene(t_main *app);
@@ -333,6 +341,7 @@ t_vec3		vec3_norm(t_vec3 v);
 t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_sub(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_multiply(t_vec3 v, double scalar);
+t_vec3		vec3_divide(t_vec3 v, double scalar);
 t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_new(double x, double y, double z);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
