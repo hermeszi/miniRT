@@ -81,6 +81,15 @@ typedef struct	s_mat3
 	t_vec3 col[3];			// col[0]=right (x), col[1]=up (y), col[2]=forward (z)
 } t_mat3;
 
+typedef struct	s_quadratic
+{
+	double	a;
+	double	b;
+	double	c;
+	double	t;
+	t_vec3	oc;
+} t_quadratic;
+
 typedef struct	s_color		// RGB color (0-255 range)
 {
 	unsigned int	r;

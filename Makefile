@@ -6,7 +6,7 @@
 #    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/17 16:34:30 by myuen            ###   ########.fr        #
+#    Updated: 2025/06/26 20:42:36 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,13 +67,15 @@ SRCS = src/ft_minirt.c \
 	   src/ft_vec_utils.c \
 	   src/ft_color.c \
 	   src/ft_viewport.c \
-	   src/ft_ray.c \
+	   src/ft_ray_create.c \
+	   src/ft_ray_trace.c \
 	   src/ft_print_scene_info.c \
 	   src/ft_intersect_sphere.c \
 	   src/ft_intersect_plane.c \
 	   src/ft_matrix_utils.c \
 	   src/ft_camera_setup.c \
-	   src/ft_camera_transform.c
+	   src/ft_camera_transform.c \
+	   src/ft_shadow.c
 
 BONUS_SRCS =
 

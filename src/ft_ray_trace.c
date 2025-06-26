@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ray.c                                           :+:      :+:    :+:   */
+/*   ft_ray_trace.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/24 20:41:36 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/26 20:42:53 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@
 // 	ray.direction = vec3_norm(vp_point);
 // 	return (ray);
 // }
-
-t_ray create_ray(t_camera *camera, t_viewport *viewport, int pixel_x, int pixel_y)
-{
-	t_ray	ray;
-	t_vec3	viewport_dir;
-	t_vec3	world_dir;
-
-	viewport_dir = pixel_to_viewport(viewport, pixel_x, pixel_y);
-	world_dir = camera_to_world_direction(camera, viewport_dir);
-	ray.origin = camera->position;
-	ray.direction = vec3_norm(world_dir);
-	return (ray);
-}
 
 t_color	get_hit_color(t_hit *closest_hit, t_scene *scene)
 {
@@ -75,12 +62,11 @@ t_color	get_hit_color(t_hit *closest_hit, t_scene *scene)
 				break ;
 			}
 		}
-		// Add else-if blocks here for planes and cylinders
+		// Add else-if blocks here for cylinders
 		current = current->next;
 	}
 	return (calculate_shading(closest_hit, scene, in_shadow));
 }
-
 
 t_color	trace_ray(t_ray ray, t_scene *scene)
 {

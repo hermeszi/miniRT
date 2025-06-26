@@ -6,38 +6,11 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/16 19:08:06 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/26 20:39:27 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
-
-/*
-** Ray-sphere intersection using quadratic equation
-** Ray: P = O + t*D
-** Sphere: |P - C|² = r²
-** Substitute: |O + t*D - C|² = r²
-** Solve for t
-*/
-
-/*
-** Computes coefficients a, b, and c for the ray-sphere intersection equation:
-** Ray: P(t) = O + tD
-** Sphere: |P - C|² = r²
-** => a·t² + b·t + c = 0
-This step finds:
-    a: how long the ray's direction is (usually 1, since it's normalized)
-    b: how far the ray points toward the sphere
-    c: how far away the ray starts from the sphere (minus the radius)
-*/
-static void	get_quadratic_coefficients(t_ray ray, t_sphere sphere,
-					t_vec3 *oc, double *a, double *b, double *c)
-{
-	*oc = vec3_sub(ray.origin, sphere.center);
-	*a = vec3_dot(ray.direction, ray.direction);
-	*b = 2.0 * vec3_dot(*oc, ray.direction);
-	*c = vec3_dot(*oc, *oc) - (sphere.radius * sphere.radius);
-}
 
 /*
 ** Solves the quadratic equation using discriminant
@@ -83,29 +56,46 @@ static void	get_hit_record(t_hit *hit, t_ray ray, t_sphere sphere, double t)
 	hit->normal = vec3_norm(vec3_sub(hit->point, sphere.center));
 	hit->color = sphere.color;
 }
-
+/*
+** Computes coefficients a, b, and c for the ray-sphere intersection equation:
+** Ray: P(t) = O + tD
+** Sphere: |P - C|² = r²
+** => a·t² + b·t + c = 0
+This step finds:
+    a: how long the ray's direction is (usually 1, since it's normalized)
+    b: how far the ray points toward the sphere
+    c: how far away the ray starts from the sphere (minus the radius)
+*/
 /*
 ** Main ray-sphere intersection function
 ** Returns a t_hit record with hit = 1 if ray intersects sphere
 */
 t_hit	intersect_sphere(t_ray ray, t_sphere sphere)
 {
-	t_hit	hit;
-	t_vec3	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	t;
+	t_hit		hit;
+	t_quadratic	q;
 
 	hit.hit = 0;
 	hit.t = INFINITY;
-	get_quadratic_coefficients(ray, sphere, &oc, &a, &b, &c);
-	t = solve_quadratic(a, b, c);
-	if (t < 0)
+	q.oc = vec3_sub(ray.origin, sphere.center);
+	q.a = vec3_dot(ray.direction, ray.direction);
+	q.b = 2.0 * vec3_dot(q.oc, ray.direction);
+	q.c = vec3_dot(q.oc, q.oc) - (sphere.radius * sphere.radius);
+	q.t = solve_quadratic(q.a, q.b, q.c);
+	if (q.t < 0)
 		return (hit);
-	get_hit_record(&hit, ray, sphere, t);
+	get_hit_record(&hit, ray, sphere, q.t);
 	return (hit);
 }
+
+
+/*
+** Ray-sphere intersection using quadratic equation
+** Ray: P = O + t*D
+** Sphere: |P - C|² = r²
+** Substitute: |O + t*D - C|² = r²
+** Solve for t
+*/
 
 
 // t_hit	intersect_sphere(t_ray ray, t_sphere sphere)
