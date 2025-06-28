@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/28 17:13:00 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/28 17:18:04 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_color	trace_ray(t_ray ray, t_scene *scene)
 	t_hit	closest_hit;
 
 	closest_hit = find_closest_hit(ray, scene);
-
 	if (closest_hit.hit)
 		return (get_hit_color(&closest_hit, scene));
 	return (scene->background);

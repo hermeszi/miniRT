@@ -249,6 +249,7 @@ void	clear_image(t_display *data);
 /********************************************************/
 t_hit	intersect_sphere(t_ray ray, t_sphere sphere);
 t_hit	intersect_plane(t_ray ray, t_plane plane);
+t_hit	intersect_cylinder(t_ray ray, t_cylinder cylinder);
 
 /********************************************************/
 /*						Lights							*/
