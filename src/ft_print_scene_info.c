@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/16 18:47:01 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/28 17:01:31 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,6 @@ static void	print_cylinder(t_cylinder cylinder, int index)
 	printf("\n");
 }
 
-static void	print_object(t_object *obj, int index)
-{
-	if (obj->type == OBJ_SPHERE)
-		print_sphere(obj->data.sphere, index);
-	else if (obj->type == OBJ_PLANE)
-		print_plane(obj->data.plane, index);
-	else if (obj->type == OBJ_CYLINDER)
-		print_cylinder(obj->data.cylinder, index);
-	else
-		printf("Object %d: Unknown object type.\n", index);
-}
-
 static void	print_objs(t_object *obj)
 {
 	int	index;
@@ -63,7 +51,14 @@ static void	print_objs(t_object *obj)
 	index = 0;
 	while (obj)
 	{
-		print_object(obj, index++);
+		if (obj->type == OBJ_SPHERE)
+			print_sphere(obj->data.sphere, index);
+		else if (obj->type == OBJ_PLANE)
+			print_plane(obj->data.plane, index);
+		else if (obj->type == OBJ_CYLINDER)
+			print_cylinder(obj->data.cylinder, index);
+		else
+			printf("Object %d: Unknown object type.\n", index++);
 		obj = obj->next;
 	}
 	printf("--\n");
