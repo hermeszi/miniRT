@@ -30,7 +30,7 @@
 # define WIN_HEIGHT 400
 # define VIEWPORT_DISTANCE 1.2
 # define BACKGROUND_COLOR 0x0099CCFF //0x00FFFFFF 
-# define ATTENUATION_CONSTANT 0.8
+# define ATTENUATION_CONSTANT 0.7
 # define ATTENUATION_LINEAR 0.05
 # define ATTENUATION_QUADRATIC 0.005
 /********************************************************/
