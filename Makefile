@@ -6,7 +6,7 @@
 #    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/26 21:07:31 by myuen            ###   ########.fr        #
+#    Updated: 2025/06/28 13:53:53 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRCS = src/ft_minirt.c \
        src/ft_minirt_utils.c \
        src/ft_message.c \
        src/ft_atof.c \
-       src/ft_vec_calculations.c \
+       src/ft_vec_calculations1.c \
+	   src/ft_vec_calculations2.c \
 	   src/ft_vec_utils.c \
 	   src/ft_color.c \
 	   src/ft_viewport.c \

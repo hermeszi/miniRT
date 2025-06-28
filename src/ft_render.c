@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/24 20:43:09 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/28 14:55:15 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	draw_scene(t_main *app)
 
 void	render_scene(t_main *app)
 {
-
 	if (!app || !app->display || !app->scene)
 		return ;
 	draw_scene(app);

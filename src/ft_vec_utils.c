@@ -6,11 +6,21 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 15:11:45 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/17 16:05:20 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/28 13:13:23 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
+
+t_vec3	vec3_new(double x, double y, double z)
+{
+	t_vec3	v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
 
 double	vec3_length(t_vec3 v)
 {
@@ -42,22 +52,3 @@ t_vec3	vec3_norm(t_vec3 v)
 	return (norm);
 }
 
-t_vec3	vec3_new(double x, double y, double z)
-{
-	t_vec3	v;
-
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
-}
-
-t_vec3	vec3_mult_vec3(t_vec3 v1, t_vec3 v2)
-{
-	t_vec3	res;
-
-	res.x = v1.x * v2.x;
-	res.y = v1.y * v2.y;
-	res.z = v1.z * v2.z;
-	return (res);
-}

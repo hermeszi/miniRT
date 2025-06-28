@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 10:11:34 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/26 21:27:32 by myuen            ###   ########.fr       */
+/*   Updated: 2025/06/28 14:47:26 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ t_color	calculate_point_light(t_hit *hit, t_scene *scene)
 		scene->light.position, &light_dir, &distance);
 	intensity = diffuse_intensity(hit->normal,
 		light_dir, scene->light.brightness, distance);
-	return (color_scale(hit->color, intensity));
+	return (color_scale(color_mult(hit->color, scene->light.color), intensity));
 }
 
