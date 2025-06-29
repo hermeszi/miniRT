@@ -39,8 +39,9 @@ static int	is_in_shadow(t_ray shadow_ray, double light_dist, t_hit *hit, t_scene
 		else if (current->type == OBJ_PLANE)
 			shadow_hit = intersect_plane(shadow_ray, current->data.plane);
 		else if (current->type == OBJ_CYLINDER)
-			; // add cylinder 
-
+		{
+			; // add cylinder
+		}
 		if (shadow_hit.hit && shadow_hit.t < light_dist)
 			return (1);
 		current = current->next;

@@ -29,8 +29,9 @@ static t_hit	find_closest_hit(t_ray ray, t_scene *scene)
 		else if (current->type == OBJ_PLANE)
 			current_hit = intersect_plane(ray, current->data.plane);
 		else if (current->type == OBJ_CYLINDER)
-			;// add cylinder 
-
+		{
+			;// add cylinder
+		}
 		if (current_hit.hit && current_hit.t < closest_hit.t)
 		{
 			closest_hit = current_hit;
