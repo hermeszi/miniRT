@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:06:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/02 12:12:27 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/02 18:54:41 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	get_body_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl)
 {
-	t_vec3	p;
 	t_vec3	oc;
 	double	x;
 

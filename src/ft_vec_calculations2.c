@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vec_calculations2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:44:49 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/28 13:13:02 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/02 18:44:02 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ double	vec3_dot(t_vec3 v1, t_vec3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
-
 
 t_vec3	vec3_mult_vec3(t_vec3 v1, t_vec3 v2)
 {

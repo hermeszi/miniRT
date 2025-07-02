@@ -6,7 +6,7 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/07/02 18:05:37 by jngew            ###   ########.fr        #
+#    Updated: 2025/07/02 18:53:53 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ ifeq ($(UNAME_S), Linux)
     MLX_INCLUDES = -I/usr/include -I$(MLX_DIR)
 else ifeq ($(UNAME_S), Darwin)
     MLXFLAGS    = -L$(MLX_DIR) -lmlx -L/opt/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
-    MLX_INCLUDES = -I/opt/X11/include -I$(MLX_DIR)
+    MLX_INCLUDES = -I/opt/X11/include -isystem$(MLX_DIR)
 else
     $(error Unsupported platform: $(UNAME_S))
 endif

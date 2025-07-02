@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minirt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/13 16:50:31 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/02 18:43:41 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	check_args(int argc, char **argv)
 		return ;
 	}
 }
-static void show_scene(t_main *app, int result)
+
+static void	show_scene(t_main *app, int result)
 {
 	print_scene_info(app->scene);
 	if (!result)

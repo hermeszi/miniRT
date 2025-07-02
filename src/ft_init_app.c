@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_app.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/25 20:42:24 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/02 18:44:31 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	init_screen_mlx(t_display *win)
 	win->mlx_ptr = mlx_init();
 	if (!win->mlx_ptr)
 		return (1);
-	win->win_ptr = mlx_new_window(win->mlx_ptr, win->width, win->height, "miniRT");
+	win->win_ptr = mlx_new_window(win->mlx_ptr,
+			win->width, win->height, "miniRT");
 	if (!win->win_ptr)
 		return (1);
 	win->img_ptr = mlx_new_image(win->mlx_ptr, win->width, win->height);
@@ -52,6 +53,7 @@ static int	init_screen_mlx(t_display *win)
 	}
 	return (0);
 }
+
 static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 {
 	if (fov_deg <= 0.0 || fov_deg >= 180.0)
@@ -76,7 +78,7 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 int	init_app(t_main *app, char *filename)
 {
 	int	viewpoint_status;
-	
+
 	app->scene = parse_file(filename);
 	app->display = malloc(sizeof(t_display));
 	if (!app->display || init_display_struct(app->display)
