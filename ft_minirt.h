@@ -29,7 +29,7 @@
 # define WIN_WIDTH 600
 # define WIN_HEIGHT 400
 # define VIEWPORT_DISTANCE 1.2
-# define BACKGROUND_COLOR 0x0099CCFF //0x00FFFFFF 
+# define BACKGROUND_COLOR 0x0099CCFF //0x00FFFFFF
 # define ATTENUATION_CONSTANT 0.7
 # define ATTENUATION_LINEAR 0.05
 # define ATTENUATION_QUADRATIC 0.005
@@ -147,6 +147,17 @@ typedef struct	s_cylinder
 	t_color	color;		// RGB (0-255)
 } t_cylinder;
 
+typedef struct	s_cyl_cal;
+{
+	t_vec3	oc;			// Vector from ray origin to cylinder center
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double	t1;
+	double	t2;
+} t_cyl_cal;
+
 typedef struct	s_object
 {
     t_obj_type	type;
@@ -204,7 +215,7 @@ typedef struct	s_viewport //canvas
 	double	width;		// Viewport width
 	double	height;     // Viewport height
 	double	distance;   // Distance from camera to viewport
-	double	fov_rad;	
+	double	fov_rad;
 	double	aspect_ratio; //width/height
 	double	half_scale;
 } t_viewport;
