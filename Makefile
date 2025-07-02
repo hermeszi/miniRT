@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
+#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/06/28 17:25:10 by myuen            ###   ########.fr        #
+#    Updated: 2025/07/02 12:09:02 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,8 @@ SRCS = src/ft_minirt.c \
 	   src/ft_camera_transform.c \
 	   src/ft_light_point.c \
 	   src/ft_shadow.c \
-	   src/ft_get_hit_color.c
+	   src/ft_get_hit_color.c \
+	   src/ft_intersect_cylinder_utils.c
 
 BONUS_SRCS =
 

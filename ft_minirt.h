@@ -147,7 +147,7 @@ typedef struct	s_cylinder
 	t_color	color;		// RGB (0-255)
 } t_cylinder;
 
-typedef struct	s_cyl_cal;
+typedef struct	s_cyl_cal
 {
 	t_vec3	oc;			// Vector from ray origin to cylinder center
 	double	a;
@@ -261,6 +261,10 @@ void	clear_image(t_display *data);
 t_hit	intersect_sphere(t_ray ray, t_sphere sphere);
 t_hit	intersect_plane(t_ray ray, t_plane plane);
 t_hit	intersect_cylinder(t_ray ray, t_cylinder cylinder);
+void	get_body_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl);
+void	get_cap_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl);
+int		is_within_height(double t, t_ray ray, t_cylinder cyl);
+double	intersect_caps(t_ray ray, t_cylinder cyl);
 
 /********************************************************/
 /*						Lights							*/
