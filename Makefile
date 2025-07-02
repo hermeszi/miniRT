@@ -6,7 +6,7 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/07/02 12:09:02 by jngew            ###   ########.fr        #
+#    Updated: 2025/07/02 18:05:37 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRCS = src/ft_minirt.c \
 	   src/ft_parse_linked.c \
        src/ft_parse_objects.c \
        src/ft_parse_scene.c \
+	   src/ft_parse_utils.c \
+	   src/ft_parse_utils2.c \
        src/ft_minirt_utils.c \
        src/ft_message.c \
        src/ft_atof.c \
@@ -74,13 +76,13 @@ SRCS = src/ft_minirt.c \
 	   src/ft_intersect_sphere.c \
 	   src/ft_intersect_plane.c \
 	   src/ft_intersect_cylinder.c \
+	   src/ft_intersect_cylinder_utils.c \
 	   src/ft_matrix_utils.c \
 	   src/ft_camera_setup.c \
 	   src/ft_camera_transform.c \
 	   src/ft_light_point.c \
 	   src/ft_shadow.c \
-	   src/ft_get_hit_color.c \
-	   src/ft_intersect_cylinder_utils.c
+	   src/ft_get_hit_color.c
 
 BONUS_SRCS =
 
