@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
+#    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/07/04 18:34:47 by jngew            ###   ########.fr        #
+#    Updated: 2025/07/04 20:02:59 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,11 +85,44 @@ SRCS = src/ft_minirt.c \
 	   src/ft_shadow.c \
 	   src/ft_get_hit_color.c
 
-BONUS_SRCS =
+BONUS_SRCS = bonus/ft_minirt_bonus.c \
+       bonus/ft_init_app_bonus.c \
+       bonus/ft_hooks_bonus.c \
+       bonus/ft_free_all_bonus.c \
+       bonus/ft_draw_bonus.c \
+       bonus/ft_render_bonus.c \
+       bonus/ft_parse_file_bonus.c \
+	   bonus/ft_parse_linked_bonus.c \
+       bonus/ft_parse_objects_bonus.c \
+       bonus/ft_parse_scene_bonus.c \
+	   bonus/ft_parse_utils_bonus.c \
+	   bonus/ft_parse_utils2_bonus.c \
+	   bonus/ft_parse_validation_bonus.c \
+       bonus/ft_minirt_utils_bonus.c \
+       bonus/ft_message_bonus.c \
+       bonus/ft_atof_bonus.c \
+       bonus/ft_vec_calculations1_bonus.c \
+	   bonus/ft_vec_calculations2_bonus.c \
+	   bonus/ft_vec_utils_bonus.c \
+	   bonus/ft_color_bonus.c \
+	   bonus/ft_viewport_bonus.c \
+	   bonus/ft_ray_create_bonus.c \
+	   bonus/ft_ray_trace_bonus.c \
+	   bonus/ft_print_scene_info_bonus.c \
+	   bonus/ft_intersect_sphere_bonus.c \
+	   bonus/ft_intersect_plane_bonus.c \
+	   bonus/ft_intersect_cylinder_bonus.c \
+	   bonus/ft_intersect_cylinder_utils_bonus.c \
+	   bonus/ft_matrix_utils_bonus.c \
+	   bonus/ft_camera_setup_bonus.c \
+	   bonus/ft_camera_transform_bonus.c \
+	   bonus/ft_light_point_bonus.c \
+	   bonus/ft_shadow_bonus.c \
+	   bonus/ft_get_hit_color_bonus.c
 
 # Object files
 OBJS        = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
-BONUS_OBJS  = $(BONUS_SRCS:src/%.c=$(OBJ_DIR)/%.o)
+BONUS_OBJS  = $(BONUS_SRCS:bonus/%.c=$(OBJ_DIR)/%.o)
 
 # Header files
 HEADERS     = ft_minirt.h
@@ -129,6 +162,9 @@ $(OBJ_DIR):
 
 # Compile source files
 $(OBJ_DIR)/%.o: src/%.c $(HEADERS) | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+# Bonus source files in bonus folder
+$(OBJ_DIR)/%.o: bonus/%.c $(HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # Cleaning
