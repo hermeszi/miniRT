@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:43:25 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/04 17:44:09 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/04 19:22:37 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ static t_vec3	adjust_normal(t_vec3 normal, t_ray ray)
 	return (normal);
 }
 
+static t_color	get_plane_checker_color(t_hit hit)
+{
+	double	u;
+	double	v;
+	int		check_u;
+	int		check_v;
+
+	u = hit.point.x * CHECKER_SCALE;
+	v = hit.point.z * CHECKER_SCALE;
+	check_u = floor(u);
+	check_v = floor(v);
+	if ((check_u + check_v) % 2 == 0)
+		return (hit.color);
+	else
+		return (invert_color(hit.color));
+}
+
 t_hit	intersect_plane(t_ray ray, t_plane plane)
 {
 	t_hit	hit;
@@ -44,6 +61,7 @@ t_hit	intersect_plane(t_ray ray, t_plane plane)
 				vec3_multiply(ray.direction, hit.t));
 			hit.normal = adjust_normal(plane.normal, ray);
 			hit.color = plane.color;
+			hit.color = get_plane_checker_color(hit);
 			hit.object = NULL;
 		}
 	}

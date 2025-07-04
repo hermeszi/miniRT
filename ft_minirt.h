@@ -34,6 +34,7 @@
 # define ATTENUATION_LINEAR 0.05
 # define ATTENUATION_QUADRATIC 0.005
 # define EPSILON 1e-6
+# define CHECKER_SCALE 1.0
 /********************************************************/
 /*								Color Definitions		*/
 /********************************************************/
@@ -286,9 +287,11 @@ t_color		get_hit_color(t_hit *closest_hit, t_scene *scene);
 /********************************************************/
 /*							Utilites					*/
 /********************************************************/
+t_color		int_to_rgb(const int r, const int g, const int b);
 int			rgb_to_int(t_color c);
 t_color		hex_to_rgb(int hex);
 double		degrees_to_radians(double degrees);
+t_color		invert_color(t_color c);
 
 /********************************************************/
 /*							Hooks						*/
@@ -306,10 +309,10 @@ void		free_all(t_main *app);
 /********************************************************/
 /*							LIBFT Functions				*/
 /********************************************************/
-long	ft_atoi_strict(const char *str, char **endptr);
-double	ft_atof_strict(const char *str, char **endptr);
-double	get_validated_double(char *str);
-int		get_validated_int(char *str);
+long		ft_atoi_strict(const char *str, char **endptr);
+double		ft_atof_strict(const char *str, char **endptr);
+double		get_validated_double(char *str);
+int			get_validated_int(char *str);
 
 /********************************************************/
 /*						Print Messages Functions		*/
@@ -373,7 +376,6 @@ t_color		color_mult(t_color c1, t_color c2);
 /********************************************************/
 /*					Colour Functions					*/
 /********************************************************/
-t_color		int_to_rgb(const int r, const int g, const int b);
 t_color		color_add(t_color c1, t_color c2);
 t_color		color_scale(t_color c, double factor);
 t_color		color_mult(t_color c1, t_color c2);

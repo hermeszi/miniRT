@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:21:31 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 20:08:45 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/04 19:02:01 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ t_color	hex_to_rgb(int hex)
 	c.g = (hex >> 8) & 0xFF;
 	c.b = hex & 0xFF;
 	return (c);
+}
+
+t_color	invert_color(t_color c)
+{
+	t_color	inv;
+
+	inv.r = 255 - c.r;
+	inv.g = 255 - c.g;
+	inv.b = 255 - c.b;
+	return (inv);
 }
 
 double	degrees_to_radians(double degrees)
