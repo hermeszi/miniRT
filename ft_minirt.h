@@ -33,6 +33,7 @@
 # define ATTENUATION_CONSTANT 0.7
 # define ATTENUATION_LINEAR 0.05
 # define ATTENUATION_QUADRATIC 0.005
+# define EPSILON 1e-6
 /********************************************************/
 /*								Color Definitions		*/
 /********************************************************/
@@ -65,136 +66,138 @@
 /********************************************************/
 /*									Structures			*/
 /********************************************************/
-typedef enum	e_obj_type
+typedef enum e_obj_type
 {
-    OBJ_PLANE,
-    OBJ_SPHERE,
-    OBJ_CYLINDER
-} t_obj_type;
+	OBJ_PLANE,
+	OBJ_SPHERE,
+	OBJ_CYLINDER
+}	t_obj_type;
 
-typedef struct	s_vec3
+typedef struct s_vec3
 {
 	double	x;
 	double	y;
 	double	z;
-} t_vec3;
+}	t_vec3;
 
-typedef struct	s_mat3
+typedef struct s_mat3
 {
-	t_vec3 col[3];			// col[0]=right (x), col[1]=up (y), col[2]=forward (z)
-} t_mat3;
+	t_vec3	col[3];			
+}	t_mat3;
+// col[0]=right (x), col[1]=up (y), col[2]=forward (z)
 
-typedef struct	s_quadratic
+typedef struct s_quadratic
 {
 	double	a;
 	double	b;
 	double	c;
 	double	t;
 	t_vec3	oc;
-} t_quadratic;
+}	t_quadratic;
 
-typedef struct	s_color		// RGB color (0-255 range)
+typedef struct s_color
 {
 	unsigned int	r;
 	unsigned int	g;
 	unsigned int	b;
-} t_color;
+}	t_color;
+// RGB color (0-255 range)
 
-typedef struct	s_ambient
+typedef struct s_ambient
 {
-	double	ratio;	// Range [0.0, 1.0]
-	t_color	color;	// RGB (0-255)
-} t_ambient;
+	double	ratio;
+	t_color	color;
+}	t_ambient;
 
-typedef struct	s_camera
+typedef struct s_camera
 {
-	t_vec3	position;	// Position coordinates
-	int		fov;		// Field of view in degrees [0,180]
-	t_vec3	orientation;// Normalized direction vector [-1,1]
+	t_vec3	position;
+	int		fov;
+	t_vec3	orientation;
 	t_vec3	up;
 	t_vec3	right;
 	t_mat3	rotation;
-} t_camera;
+}	t_camera;
 
-typedef struct	s_light
+typedef struct s_light
 {
-	t_vec3	position;	// Light position
-	double	brightness;	// Light brightness ratio [0.0, 1.0]
-	t_color	color;		// RGB (0-255) - unused in mandatory part
-} t_light;
+	t_vec3	position;
+	double	brightness;
+	t_color	color;
+}	t_light;
 
-typedef struct	s_plane
+typedef struct s_plane
 {
-	t_vec3	position;	// Point in the plane
-	t_vec3	normal;		// Normalized normal vector [-1,1]
-	t_color	color;		// RGB (0-255)
-} t_plane;
+	t_vec3	position;
+	t_vec3	normal;
+	t_color	color;
+}	t_plane;
 
-typedef struct	s_sphere
+typedef struct s_sphere
 {
-	t_vec3	center;		// Center coordinates
-	double	diameter;	// Sphere diameter
+	t_vec3	center;
+	double	diameter;
 	double	radius;
-	t_color	color;		// RGB (0-255)
-} t_sphere;
+	t_color	color;
+}	t_sphere;
 
-typedef struct	s_cylinder
+typedef struct s_cylinder
 {
-	t_vec3	center;		// Center coordinates
-	t_vec3	axis;		// Normalized axis vector [-1,1]
-	double	diameter;	// Cylinder diameter
-	double	height;		// Cylinder height
-	t_color	color;		// RGB (0-255)
-} t_cylinder;
+	t_vec3	center;
+	t_vec3	axis;
+	double	diameter;
+	double	height;
+	t_color	color;
+}	t_cylinder;
 
-typedef struct	s_cyl_cal
+typedef struct s_cyl_cal
 {
-	t_vec3	oc;			// Vector from ray origin to cylinder center
+	t_vec3	oc;
 	double	a;
 	double	b;
 	double	c;
 	double	discriminant;
 	double	t1;
 	double	t2;
-} t_cyl_cal;
+}	t_cyl_cal;
 
-typedef struct	s_object
+typedef struct s_object
 {
-    t_obj_type	type;
-    union
-    {
-        t_plane		plane;
-        t_sphere	sphere;
-        t_cylinder	cylinder;
-    } data;
-	int				x; //obj_id
+	t_obj_type		type;
+	union
+	{
+		t_plane		plane;
+		t_sphere	sphere;
+		t_cylinder	cylinder;
+	} u_data;
+	int				x;
 	struct s_object	*next;
-} t_object;
+}	t_object;
 
-typedef struct	s_scene
+typedef struct s_scene
 {
-    t_ambient		ambient;		// Ambient lighting (only one)
-    t_camera		camera;			// Camera (only one)
-    t_light			light;			// Light source (only one in mandatory part)
-    t_object		*objects;		// Linked list of objects (planes, spheres, cylinders)
+	t_ambient		ambient;
+	t_camera		camera;
+	t_light			light;
+	t_object		*objects;
 	t_color			background;
-    unsigned int	object_count;	// Number of objects in the scene
-} t_scene;
+	unsigned int	object_count;
+}	t_scene;
 
-typedef struct	s_display
+typedef struct s_display
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
-	char	*img_data;
+	char	*img_u_data;
 	int		bpp;
 	int		line_len;
 	int		endian;
 	int		width;
 	int		height;
-} t_display;
+}	t_display;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	t_vec3		origin;
 	t_vec3		direction;
@@ -202,116 +205,117 @@ typedef struct	s_ray
 
 typedef struct s_hit
 {
-	int			hit;		// A boolean flag: 1 if there was a hit, 0 otherwise.
-	double		t;			// The distance from the ray's origin to the hit point.
-	t_vec3		point;		// The (x, y, z) coordinates of the intersection point.
-	t_vec3		normal;		// The surface normal vector at the hit point.
+	int			hit;
+	double		t;
+	t_vec3		point;
+	t_vec3		normal;
 	t_color		color;
-	t_object	*object;	// A pointer to the specific object that was hit.
+	t_object	*object;
 }	t_hit;
 
-typedef struct	s_viewport //canvas
+typedef struct s_viewport
 {
-	double	width;		// Viewport width
-	double	height;     // Viewport height
-	double	distance;   // Distance from camera to viewport
+	double	width;
+	double	height;
+	double	distance;
 	double	fov_rad;
-	double	aspect_ratio; //width/height
+	double	aspect_ratio;
 	double	half_scale;
-} t_viewport;
+}	t_viewport;
 
-typedef struct	s_main
+typedef struct s_main
 {
 	t_scene		*scene;
 	t_display	*display;
 	t_viewport	viewport;
 
-} t_main;
+}	t_main;
 
 /********************************************************/
 /*							Init						*/
 /********************************************************/
-int		init_app(t_main *app, char *filename);
-void	init_hooks(t_main *app);
+int			init_app(t_main *app, char *filename);
+void		init_hooks(t_main *app);
 
 /********************************************************/
 /*							Matrix						*/
 /********************************************************/
-t_vec3	mat3_multiply_vec3(t_mat3 m, t_vec3 v);
-t_mat3	mat3_from_vectors(t_vec3 right, t_vec3 up, t_vec3 forward);
+t_vec3		mat3_multiply_vec3(t_mat3 m, t_vec3 v);
+t_mat3		mat3_from_vectors(t_vec3 right, t_vec3 up, t_vec3 forward);
 
 /********************************************************/
 /*							Camera						*/
 /********************************************************/
-void	init_camera(t_camera *camera);
-void	build_camera_matrix(t_camera *camera);
-t_vec3	pixel_to_viewport(t_viewport *viewport, int screen_x, int screen_y);
-t_ray	create_ray(t_camera *camera, t_viewport *viewport, int pixel_x, int pixel_y);
-t_vec3	camera_to_world_direction(t_camera *camera, t_vec3 viewport_dir);
+void		init_camera(t_camera *camera);
+void		build_camera_matrix(t_camera *camera);
+t_vec3		pixel_to_viewport(t_viewport *viewport, int screen_x, int screen_y);
+t_ray		create_ray(t_camera *camera, t_viewport *viewport, \
+					int pixel_x, int pixel_y);
+t_vec3		camera_to_world_direction(t_camera *camera, t_vec3 viewport_dir);
 
 /********************************************************/
 /*						Draw MLX Functions			 	*/
 /********************************************************/
-void	set_pixel(t_display *display, int x, int y, int color);
-void	clear_image(t_display *data);
+void		set_pixel(t_display *display, int x, int y, int color);
+void		clear_image(t_display *u_data);
 
 /********************************************************/
 /*						Intercept Objects				*/
 /********************************************************/
-t_hit	intersect_sphere(t_ray ray, t_sphere sphere);
-t_hit	intersect_plane(t_ray ray, t_plane plane);
-t_hit	intersect_cylinder(t_ray ray, t_cylinder cylinder);
-void	get_body_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl);
-void	get_cap_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl);
-int		is_within_height(double t, t_ray ray, t_cylinder cyl);
-double	intersect_caps(t_ray ray, t_cylinder cyl);
+t_hit		intersect_sphere(t_ray ray, t_sphere sphere);
+t_hit		intersect_plane(t_ray ray, t_plane plane);
+t_hit		intersect_cylinder(t_ray ray, t_cylinder cylinder);
+void		get_body_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl);
+void		get_cap_hit(t_hit *hit, double t, t_ray ray, t_cylinder cyl);
+int			is_within_height(double t, t_ray ray, t_cylinder cyl);
+double		intersect_caps(t_ray ray, t_cylinder cyl);
 
 /********************************************************/
 /*						Lights							*/
 /********************************************************/
-t_color	calculate_point_light(t_hit *hit, t_scene *scene);
+t_color		calculate_point_light(t_hit *hit, t_scene *scene);
 
 /********************************************************/
 /*							Render 						*/
 /********************************************************/
-void	render_scene(t_main *app);
-void	draw_scene(t_main *app);
-t_color	trace_ray(t_ray ray, t_scene *scene);
-t_color	get_hit_color(t_hit *closest_hit, t_scene *scene);
+void		render_scene(t_main *app);
+void		draw_scene(t_main *app);
+t_color		trace_ray(t_ray ray, t_scene *scene);
+t_color		get_hit_color(t_hit *closest_hit, t_scene *scene);
 
 /********************************************************/
 /*							Utilites					*/
 /********************************************************/
-int		rgb_to_int(t_color c);
-t_color	hex_to_rgb(int hex);
-double	degrees_to_radians(double degrees);
+int			rgb_to_int(t_color c);
+t_color		hex_to_rgb(int hex);
+double		degrees_to_radians(double degrees);
 
 /********************************************************/
 /*							Hooks						*/
 /********************************************************/
-int		key_hook(int keycode, t_main *app);
-int		mouse_hook(int button, int x, int y, t_main *app);
-int		close_hook(t_main *app);
+int			key_hook(int keycode, t_main *app);
+int			mouse_hook(int button, int x, int y, t_main *app);
+int			close_hook(t_main *app);
 
 /********************************************************/
 /*							Frees						*/
 /********************************************************/
-void	free_scene(t_scene *scene);
-void	free_all(t_main *app);
+void		free_scene(t_scene *scene);
+void		free_all(t_main *app);
 
 /********************************************************/
 /*							LIBFT Functions				*/
 /********************************************************/
-int		ft_isvalid_float_str(const char *str);
-double	ft_atof(const char *str);
+int			ft_isvalid_float_str(const char *str);
+double		ft_atof(const char *str);
 
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
-void	print_error_exit(char *msg);
-void	print_color(t_color c);
-void	print_vec3(t_vec3 v);
-void	print_scene_info(t_scene *scene);
+void		print_error_exit(char *msg);
+void		print_color(t_color c);
+void		print_vec3(t_vec3 v);
+void		print_scene_info(t_scene *scene);
 
 /********************************************************/
 /*					Parse Functions						*/

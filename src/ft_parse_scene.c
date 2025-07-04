@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/06/17 17:04:28 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:16:05 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	parse_color(char *str, t_color *color)
 	color->r = ft_atoi(rgb[0]);
 	color->g = ft_atoi(rgb[1]);
 	color->b = ft_atoi(rgb[2]);
-	if (color->r > 255 ||  color->g > 255 ||  color->b > 255)
+	if (color->r > 255 || color->g > 255 || color->b > 255)
 		print_error_exit ("Color values must be between 0 and 255");
 	free_tokens(rgb);
 }

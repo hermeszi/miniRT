@@ -6,19 +6,20 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/24 20:38:44 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/04 17:57:54 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-static void	pixel_to_normalized(int screen_x, int screen_y, double *u, double *v)
+static void	pixel_to_normalized(int screen_x, int screen_y, \
+								double *u, double *v)
 {
 	*u = ((double)screen_x / (double)WIN_WIDTH) - 0.5;
 	*v = 0.5 - ((double)screen_y / (double)WIN_HEIGHT);
 }
 
-t_vec3 pixel_to_viewport(t_viewport *viewport, int screen_x, int screen_y)
+t_vec3	pixel_to_viewport(t_viewport *viewport, int screen_x, int screen_y)
 {
 	t_vec3	viewport_dir;
 	double	u;

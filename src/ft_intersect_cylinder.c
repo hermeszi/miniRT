@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intersect_cylinder.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:43:25 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/02 12:07:04 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/04 17:45:07 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_hit	intersect_cylinder(t_ray ray, t_cylinder cylinder)
 	closest_t = t_body;
 	if (t_cap < closest_t)
 		closest_t = t_cap;
-	if (closest_t < INFINITY && closest_t > 1e-6)
+	if (closest_t < INFINITY && closest_t > EPSILON)
 	{
 		if (t_cap == closest_t)
 			get_cap_hit(&hit, closest_t, ray, cylinder);

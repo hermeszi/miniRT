@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intersect_cylinder_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:06:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/02 18:54:41 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/04 17:44:36 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_within_height(double t, t_ray ray, t_cylinder cyl)
 	t_vec3	p;
 	t_vec3	oc;
 
-	if (t <= 1e-6)
+	if (t <= EPSILON)
 		return (0);
 	p = vec3_add(ray.origin, vec3_multiply(ray.direction, t));
 	oc = vec3_sub(p, cyl.center);

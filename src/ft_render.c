@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/28 14:55:15 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/04 17:55:02 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_scene(t_main *app)
 	t_color	pixel_color;
 
 	if (!app || !app->display || !app->scene)
-		return;
+		return ;
 	y = 0;
 	while (y < app->display->height)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_hit_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/02 18:40:21 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:15:14 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_ray	build_shadow_ray(t_hit *hit, t_scene *scene)
 	t_ray	shadow_ray;
 
 	shadow_ray.origin = vec3_add(hit->point,
-			vec3_multiply(hit->normal, 1e-4));
+			vec3_multiply(hit->normal, EPSILON));
 	shadow_ray.direction = vec3_norm(vec3_sub(scene->light.position,
 				hit->point));
 	return (shadow_ray);
@@ -39,11 +39,11 @@ static int	is_in_shadow(t_ray shadow_ray, double light_dist,
 		}
 		shadow_hit.hit = 0;
 		if (curr->type == OBJ_SPHERE)
-			shadow_hit = intersect_sphere(shadow_ray, curr->data.sphere);
+			shadow_hit = intersect_sphere(shadow_ray, curr->u_data.sphere);
 		else if (curr->type == OBJ_PLANE)
-			shadow_hit = intersect_plane(shadow_ray, curr->data.plane);
+			shadow_hit = intersect_plane(shadow_ray, curr->u_data.plane);
 		else if (curr->type == OBJ_CYLINDER)
-			shadow_hit = intersect_cylinder(shadow_ray, curr->data.cylinder);
+			shadow_hit = intersect_cylinder(shadow_ray, curr->u_data.cylinder);
 		if (shadow_hit.hit && shadow_hit.t < light_dist)
 			return (1);
 		curr = curr->next;

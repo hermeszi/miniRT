@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray_trace.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/02 12:23:46 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:15:14 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ static t_hit	find_closest_hit(t_ray ray, t_scene *scene)
 	while (current)
 	{
 		if (current->type == OBJ_SPHERE)
-			current_hit = intersect_sphere(ray, current->data.sphere);
+			current_hit = intersect_sphere(ray, current->u_data.sphere);
 		else if (current->type == OBJ_PLANE)
-			current_hit = intersect_plane(ray, current->data.plane);
+			current_hit = intersect_plane(ray, current->u_data.plane);
 		else if (current->type == OBJ_CYLINDER)
-			current_hit = intersect_cylinder(ray, current->data.cylinder);
+			current_hit = intersect_cylinder(ray, current->u_data.cylinder);
 		if (current_hit.hit && current_hit.t < closest_hit.t)
 		{
 			closest_hit = current_hit;

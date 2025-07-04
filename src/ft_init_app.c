@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_app.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/02 18:44:31 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:17:09 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	init_display_struct(t_display *win)
 	win->mlx_ptr = NULL;
 	win->win_ptr = NULL;
 	win->img_ptr = NULL;
-	win->img_data = NULL;
+	win->img_u_data = NULL;
 	win->bpp = 0;
 	win->line_len = 0;
 	win->endian = 0;
@@ -43,9 +43,9 @@ static int	init_screen_mlx(t_display *win)
 		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
 		return (1);
 	}
-	win->img_data = mlx_get_data_addr(win->img_ptr,
+	win->img_u_data = mlx_get_data_addr(win->img_ptr,
 			&(win->bpp), &(win->line_len), &(win->endian));
-	if (!win->img_data)
+	if (!win->img_u_data)
 	{
 		mlx_destroy_image(win->mlx_ptr, win->img_ptr);
 		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
@@ -58,7 +58,8 @@ static int	init_viewport(t_viewport *vp, double fov_deg, int width, int height)
 {
 	if (fov_deg <= 0.0 || fov_deg >= 180.0)
 	{
-		printf("Viewport: To see objects in the scene, FOV should be BETWEEN 0 and 180 degrees.\n");
+		printf("Viewport: To see objects in the scene, \
+			FOV should be BETWEEN 0 and 180 degrees.\n");
 		return (2);
 	}
 	if (width <= 0 || height <= 0)
@@ -94,7 +95,6 @@ int	init_app(t_main *app, char *filename)
 		free_all(app);
 		print_error_exit("Failed to initialize viewport.");
 	}
-	//app->scene->background = color_scale(app->scene->background, app->scene->ambient.ratio);
 	printf("miniRT app init\n");
-	return(viewpoint_status);
+	return (viewpoint_status);
 }

@@ -12,18 +12,18 @@
 
 #include "ft_minirt.h"
 
-void	set_pixel(t_display *data, int x, int y, int color)
+void	set_pixel(t_display *u_data, int x, int y, int color)
 {
 	int	pixel_offset;
 
-	if (x >= 0 && x < data->width && y >= 0 && y < data->height)
+	if (x >= 0 && x < u_data->width && y >= 0 && y < u_data->height)
 	{
-		pixel_offset = (y * data->line_len) + (x * (data->bpp / 8));
-		*(unsigned int *)(data->img_data + pixel_offset) = color;
+		pixel_offset = (y * u_data->line_len) + (x * (u_data->bpp / 8));
+		*(unsigned int *)(u_data->img_u_data + pixel_offset) = color;
 	}
 }
 
-void	clear_image(t_display *data)
+void	clear_image(t_display *u_data)
 {
 	int	x;
 	int	y;
@@ -34,7 +34,7 @@ void	clear_image(t_display *data)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			set_pixel(data, x, y, COLOR_BLACK);
+			set_pixel(u_data, x, y, COLOR_BLACK);
 			x++;
 		}
 		y++;

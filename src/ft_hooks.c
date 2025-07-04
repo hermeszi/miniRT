@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/13 16:57:44 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:33:49 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ int	mouse_hook(int button, int x, int y, t_main *app)
 	(void)x;
 	(void)y;
 	(void)app;
-
 	if (button == 4)
-		printf("Mouse scroll up\n");
+		printf("Mouse scroll up - this does nothing.\n");
 	else if (button == 5)
-		printf("Mouse scroll down\n");
+		printf("Mouse scroll down - this does nothing.\n");
 	else if (button == 1)
-		printf("Left click\n");
+		printf("Left click - this does nothing.\n");
 	return (0);
 }
 
