@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/02 18:34:53 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:09:09 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@ void	parse_vector(char *str, t_vec3 *vec)
 	{
 		if (coords)
 			free_tokens(coords);
-		print_error_exit ("Invalid vector format (x,y,z)");
+		print_error_exit("Invalid vector format: must be x,y,z");
 	}
-	if (!ft_isvalid_float_str(coords[0]) || !ft_isvalid_float_str(coords[1])
-		|| !ft_isvalid_float_str(coords[2]))
-	{
-		free_tokens(coords);
-		print_error_exit("Invalid number format in vector");
-	}
-	vec->x = ft_atof(coords[0]);
-	vec->y = ft_atof(coords[1]);
-	vec->z = ft_atof(coords[2]);
+	vec->x = get_validated_double(coords[0]);
+	vec->y = get_validated_double(coords[1]);
+	vec->z = get_validated_double(coords[2]);
 	free_tokens(coords);
 }
 

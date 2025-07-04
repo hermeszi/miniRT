@@ -6,7 +6,7 @@
 #    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/07/02 18:53:53 by jngew            ###   ########.fr        #
+#    Updated: 2025/07/04 18:34:47 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS = src/ft_minirt.c \
        src/ft_parse_scene.c \
 	   src/ft_parse_utils.c \
 	   src/ft_parse_utils2.c \
+	   src/ft_parse_validation.c \
        src/ft_minirt_utils.c \
        src/ft_message.c \
        src/ft_atof.c \

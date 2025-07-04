@@ -82,7 +82,7 @@ typedef struct s_vec3
 
 typedef struct s_mat3
 {
-	t_vec3	col[3];			
+	t_vec3	col[3];
 }	t_mat3;
 // col[0]=right (x), col[1]=up (y), col[2]=forward (z)
 
@@ -306,8 +306,10 @@ void		free_all(t_main *app);
 /********************************************************/
 /*							LIBFT Functions				*/
 /********************************************************/
-int			ft_isvalid_float_str(const char *str);
-double		ft_atof(const char *str);
+long	ft_atoi_strict(const char *str, char **endptr);
+double	ft_atof_strict(const char *str, char **endptr);
+double	get_validated_double(char *str);
+int		get_validated_int(char *str);
 
 /********************************************************/
 /*						Print Messages Functions		*/
