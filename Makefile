@@ -6,7 +6,7 @@
 #    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/07/04 20:02:59 by myuen            ###   ########.fr        #
+#    Updated: 2025/07/07 22:18:56 by myuen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ SRCS = src/ft_minirt.c \
        src/ft_vec_calculations1.c \
 	   src/ft_vec_calculations2.c \
 	   src/ft_vec_utils.c \
-	   src/ft_color.c \
+	   src/ft_color_utils1.c \
+	   src/ft_color_utils2.c \
 	   src/ft_viewport.c \
 	   src/ft_ray_create.c \
 	   src/ft_ray_trace.c \
@@ -104,7 +105,8 @@ BONUS_SRCS = bonus/ft_minirt_bonus.c \
        bonus/ft_vec_calculations1_bonus.c \
 	   bonus/ft_vec_calculations2_bonus.c \
 	   bonus/ft_vec_utils_bonus.c \
-	   bonus/ft_color_bonus.c \
+	   bonus/ft_color_utils1_bonus.c \
+	   bonus/ft_color_utils2_bonus.c \
 	   bonus/ft_viewport_bonus.c \
 	   bonus/ft_ray_create_bonus.c \
 	   bonus/ft_ray_trace_bonus.c \
