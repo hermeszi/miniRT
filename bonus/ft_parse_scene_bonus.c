@@ -84,8 +84,7 @@ void	parse_color(char *str, t_color *color)
 	color->r = get_validated_int(rgb[0]);
 	color->g = get_validated_int(rgb[1]);
 	color->b = get_validated_int(rgb[2]);
-	if (color->r > 255 || color->g > 255 || color->b > 255
-		|| color->r < 0 || color->g < 0 || color->b < 0)
+	if (color->r > 255 || color->g > 255 || color->b > 255)
 		print_error_exit("Color values must be between 0 and 255");
 	free_tokens(rgb);
 }
