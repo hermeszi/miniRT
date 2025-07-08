@@ -50,7 +50,7 @@ t_vec3	vec3_divide(t_vec3 v, double scalar)
 	{
 		perror("Division by zero in vec3_divide");
 		return (vec3_new(0, 0, 0));
-	}		
+	}
 	res.x = v.x / scalar;
 	res.y = v.y / scalar;
 	res.z = v.z / scalar;

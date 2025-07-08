@@ -36,3 +36,16 @@ t_vec3	vec3_mult_vec3(t_vec3 v1, t_vec3 v2)
 	res.z = v1.z * v2.z;
 	return (res);
 }
+
+t_vec3	get_stable_tangent(t_vec3 normal)
+{
+	t_vec3	world_up;
+	t_vec3	world_right;
+
+	world_up = vec3_new(0, 1, 0);
+	world_right = vec3_new(1, 0, 0);
+	if (fabs(vec3_dot(normal, world_up)) > 0.99)
+		return (vec3_norm(vec3_cross(normal, world_right)));
+	else
+		return (vec3_norm(vec3_cross(world_up, normal)));
+}

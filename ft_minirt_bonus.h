@@ -371,7 +371,7 @@ t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_new(double x, double y, double z);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_mult_vec3(t_vec3 v1, t_vec3 v2);
-t_color		color_mult(t_color c1, t_color c2);
+t_vec3		get_stable_tangent(t_vec3 normal);
 
 /********************************************************/
 /*					Colour Functions					*/
@@ -380,5 +380,11 @@ t_color		color_add(t_color c1, t_color c2);
 t_color		color_scale(t_color c, double factor);
 t_color		color_mult(t_color c1, t_color c2);
 t_color		calculate_shading(t_hit *hit, t_scene *scene, int in_shadow);
+
+/********************************************************/
+/*					Bonus - Checker						*/
+/********************************************************/
+t_color		get_plane_checker_color(t_hit hit, t_plane plane);
+t_color		get_sphere_checker_color(t_hit hit, t_sphere sphere);
 
 #endif

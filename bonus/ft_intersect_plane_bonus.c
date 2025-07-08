@@ -27,23 +27,6 @@ static t_vec3	adjust_normal(t_vec3 normal, t_ray ray)
 	return (normal);
 }
 
-static t_color	get_plane_checker_color(t_hit hit)
-{
-	double	u;
-	double	v;
-	int		check_u;
-	int		check_v;
-
-	u = hit.point.x * CHECKER_SCALE;
-	v = hit.point.z * CHECKER_SCALE;
-	check_u = floor(u);
-	check_v = floor(v);
-	if ((check_u + check_v) % 2 == 0)
-		return (hit.color);
-	else
-		return (invert_color(hit.color));
-}
-
 t_hit	intersect_plane(t_ray ray, t_plane plane)
 {
 	t_hit	hit;
@@ -61,9 +44,26 @@ t_hit	intersect_plane(t_ray ray, t_plane plane)
 				vec3_multiply(ray.direction, hit.t));
 			hit.normal = adjust_normal(plane.normal, ray);
 			hit.color = plane.color;
-			hit.color = get_plane_checker_color(hit);
+			hit.color = get_plane_checker_color(hit, plane);
 			hit.object = NULL;
 		}
 	}
 	return (hit);
 }
+
+// static t_color	get_plane_checker_color(t_hit hit)
+// {
+// 	double	u;
+// 	double	v;
+// 	int		check_u;
+// 	int		check_v;
+
+// 	u = hit.point.x * CHECKER_SCALE;
+// 	v = hit.point.z * CHECKER_SCALE;
+// 	check_u = floor(u);
+// 	check_v = floor(v);
+// 	if ((check_u + check_v) % 2 == 0)
+// 		return (hit.color);
+// 	else
+// 		return (invert_color(hit.color));
+// }

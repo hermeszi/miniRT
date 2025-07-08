@@ -120,14 +120,17 @@ BONUS_SRCS = bonus/ft_minirt_bonus.c \
 	   bonus/ft_camera_transform_bonus.c \
 	   bonus/ft_light_point_bonus.c \
 	   bonus/ft_shadow_bonus.c \
-	   bonus/ft_get_hit_color_bonus.c
+	   bonus/ft_get_hit_color_bonus.c \
+	   bonus/ft_checker_plane_bonus.c \
+	   bonus/ft_checker_sphere_bonus.c
 
 # Object files
 OBJS        = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 BONUS_OBJS  = $(BONUS_SRCS:bonus/%.c=$(OBJ_DIR)/%.o)
 
 # Header files
-HEADERS     = ft_minirt.h
+HEADERS     	= ft_minirt.h
+BONUS_HEADERS	= ft_minirt_bonus.h 
 
 # Default target
 all: $(NAME)
@@ -166,7 +169,7 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: src/%.c $(HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 # Bonus source files in bonus folder
-$(OBJ_DIR)/%.o: bonus/%.c $(HEADERS) | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: bonus/%.c $(BONUS_HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # Cleaning
