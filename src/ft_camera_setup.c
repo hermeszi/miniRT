@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_camera_setup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 15:31:18 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 17:18:46 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	init_camera(t_camera *camera)
 	camera->fov = -1;
 	camera->right = vec3_new(1, 0, 0);
 	camera->up = vec3_new(0, 1, 0);
-	camera->rotation = mat3_from_vectors(camera->right, \
-		camera->up, camera->orientation);
+	camera->rotation = mat3_from_vectors(camera->right,
+			camera->up, camera->orientation);
 }
 /*
 ** Builds a complete orthonormal coordinate system for the camera.

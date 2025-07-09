@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:04:07 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 15:54:39 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 17:22:13 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_tokens(char **tokens)
 	int	x;
 
 	if (!tokens)
-		return;
+		return ;
 	x = 0;
 	while (tokens[x])
 		free (tokens[x++]);

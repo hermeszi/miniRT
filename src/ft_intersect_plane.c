@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intersect_plane.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:43:25 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 12:14:04 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 17:19:18 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_hit	intersect_plane(t_ray ray, t_plane plane)
 		if (hit.t >= 0)
 		{
 			hit.hit = 1;
-			hit.point = vec3_add(ray.origin, \
-				vec3_multiply(ray.direction, hit.t));
+			hit.point = vec3_add(ray.origin,
+					vec3_multiply(ray.direction, hit.t));
 			hit.normal = adjust_normal(plane.normal, ray);
 			hit.color = plane.color;
 			hit.object = NULL;

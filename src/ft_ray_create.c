@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray_create.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 17:54:20 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 17:21:45 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-t_ray	create_ray(t_camera *camera, t_viewport *viewport, \
+t_ray	create_ray(t_camera *camera, t_viewport *viewport,
 				int pixel_x, int pixel_y)
 {
 	t_ray	ray;
@@ -24,7 +24,7 @@ t_ray	create_ray(t_camera *camera, t_viewport *viewport, \
 	ray.origin = camera->position;
 	if (fabs(vec3_length(world_dir) - 1.0) > EPSILON)
 	{
-		printf("world_dir length: %f (not normalized)\n", \
+		printf("world_dir length: %f (not normalized)\n",
 			vec3_length(world_dir));
 		ray.direction = vec3_norm(world_dir);
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_viewport.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 17:57:54 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 17:20:48 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-static void	pixel_to_normalized(int screen_x, int screen_y, \
+static void	pixel_to_normalized(int screen_x, int screen_y,
 								double *u, double *v)
 {
 	*u = ((double)screen_x / (double)WIN_WIDTH) - 0.5;
