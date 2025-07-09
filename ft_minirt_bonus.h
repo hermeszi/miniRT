@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minirt_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/09 17:37:27 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 19:23:19 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,7 @@ void		print_scene_info(t_scene *scene);
 void		check_filename(char *file);
 void		init_scene(t_scene *scene);
 void		free_tokens(char **tokens);
+void		cleanup_remaining_lines(int fd, char *line);
 char		*clean_line(char *line);
 int			validate_scene(t_scene *scene);
 int			parse_helper(char *line, t_scene *scene, int *obj_count);
@@ -350,9 +351,9 @@ void		free_objects(t_object *lst);
 /********************************************************/
 /*					Parse Objects Functions				*/
 /********************************************************/
-void		parse_sphere(char *line, t_scene *scene, int *obj_count);
-void		parse_plane(char *line, t_scene *scene, int *obj_count);
-void		parse_cylinder(char *line, t_scene *scene, int *obj_count);
+int			parse_sphere(char *line, t_scene *scene, int *obj_count);
+int			parse_plane(char *line, t_scene *scene, int *obj_count);
+int			parse_cylinder(char *line, t_scene *scene, int *obj_count);
 
 /********************************************************/
 /*					Parse Scene Functions				*/
