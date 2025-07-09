@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 17:52:12 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 21:14:01 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static t_scene	*handle_file_operations(char *file, int fd, t_scene *scene)
 		free_scene(scene);
 		return (print_error("Failed to close file"), NULL);
 	}
+	scene->object_count = obj_count;
 	return (scene);
 }
 

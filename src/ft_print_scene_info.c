@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/04 18:15:14 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 21:08:36 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	print_objs(t_object *obj)
 		else if (obj->type == OBJ_CYLINDER)
 			print_cylinder(obj->u_data.cylinder, index);
 		else
-			printf("Object %d: Unknown object type.\n", index++);
+			printf("Object %d: Unknown object type.\n", index);
+		index++;
 		obj = obj->next;
 	}
 	printf("--\n");
