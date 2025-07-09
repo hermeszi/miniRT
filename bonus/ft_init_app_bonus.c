@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_app_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 19:48:53 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 18:15:56 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	init_app(t_main *app, char *filename)
 	int	viewpoint_status;
 
 	app->scene = parse_file(filename);
+	if (!app->scene)
+		exit(EXIT_FAILURE);
 	app->display = malloc(sizeof(t_display));
 	if (!app->display || init_display_struct(app->display)
 		|| init_screen_mlx(app->display))
@@ -88,7 +90,7 @@ int	init_app(t_main *app, char *filename)
 		free_all(app);
 		print_error_exit("Failed to initialize display.");
 	}
-	viewpoint_status = init_viewport(&app->viewport, app->scene->camera.fov, \
+	viewpoint_status = init_viewport(&app->viewport, app->scene->camera.fov,
 			app->display->width, app->display->height);
 	if (viewpoint_status == 1)
 	{

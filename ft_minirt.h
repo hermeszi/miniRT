@@ -317,6 +317,7 @@ int			get_validated_int(char *str, int *result_out);
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
+void		print_error_exit(char *message);
 int			print_error(char *msg);
 int			pr_er(char **tokens, char *msg);
 void		print_color(t_color c);
@@ -329,6 +330,7 @@ void		print_scene_info(t_scene *scene);
 void		check_filename(char *file);
 void		init_scene(t_scene *scene);
 void		free_tokens(char **tokens);
+void		cleanup_remaining_lines(int fd, char *line);
 char		*clean_line(char *line);
 int			validate_scene(t_scene *scene);
 int			parse_helper(char *line, t_scene *scene, int *obj_count);

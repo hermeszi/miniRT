@@ -3,84 +3,135 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_objects_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:51:34 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/04 19:49:27 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 18:12:53 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt_bonus.h"
 
-void	parse_sphere(char *line, t_scene *scene, int *obj_count)
+static int	validate_and_set_sphere(char **tokens,
+	t_object *new_obj, double *diameter)
 {
-	char		**tokens;
-	t_object	*new_obj;
-
-	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
-		print_error_exit("Invalid format: <center> <diameter> <color>");
-	new_obj = ft_calloc(sizeof(t_object), 1);
-	if (!new_obj)
-		print_error_exit("Memory allocation failed for objects");
-	new_obj->type = OBJ_SPHERE;
-	parse_vector(tokens[1], &new_obj->u_data.sphere.center);
-	new_obj->u_data.sphere.diameter = get_validated_double(tokens[2]);
-	if (new_obj->u_data.sphere.diameter <= 0)
-		print_error_exit("Sphere diameter must be positive");
-	new_obj->u_data.sphere.radius = new_obj->u_data.sphere.diameter / 2;
-	parse_color(tokens[3], &new_obj->u_data.sphere.color);
-	new_obj->x = *obj_count;
-	(*obj_count)++;
-	object_add_end(&scene->objects, new_obj);
-	free_tokens(tokens);
+if (parse_vector(tokens[1], &new_obj->u_data.sphere.center) != 0
+	|| parse_color(tokens[3], &new_obj->u_data.sphere.color) != 0)
+{
+	free(new_obj);
+	return (pr_er(tokens, "Invalid data in sphere definition."));
+}
+if (get_validated_double(tokens[2], diameter) != 0)
+{
+	free(new_obj);
+	return (pr_er(tokens, "Invalid diameter for sphere."));
+}
+if (*diameter <= 0)
+{
+	free(new_obj);
+	return (pr_er(tokens, "Sphere diameter must be positive"));
+}
+new_obj->u_data.sphere.diameter = *diameter;
+new_obj->u_data.sphere.radius = *diameter / 2.0;
+return (0);
 }
 
-void	parse_plane(char *line, t_scene *scene, int *obj_count)
+int	parse_sphere(char *line, t_scene *scene, int *obj_count)
 {
-	char		**tokens;
-	t_object	*new_obj;
+char		**tokens;
+t_object	*new_obj;
+double		diameter;
 
-	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
-		print_error_exit("Invalid format: <point> <normal> <color>");
-	new_obj = ft_calloc(sizeof(t_object), 1);
-	if (!new_obj)
-		print_error_exit("Memory allocation failed for objects");
-	new_obj->type = OBJ_PLANE;
-	parse_vector(tokens[1], &new_obj->u_data.plane.position);
-	parse_norm_vector(tokens[2], &new_obj->u_data.plane.normal);
-	parse_color(tokens[3], &new_obj->u_data.plane.color);
-	new_obj->x = *obj_count;
-	(*obj_count)++;
-	object_add_end(&scene->objects, new_obj);
-	free_tokens(tokens);
+tokens = ft_split(line, ' ');
+if (!tokens)
+	return (print_error("Memory allocation failed."));
+if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
+	return (pr_er(tokens, "Invalid: <center> <diameter> <color>"));
+new_obj = ft_calloc(1, sizeof(t_object));
+if (!new_obj)
+	return (pr_er(tokens, "Memory allocation failed for sphere object."));
+new_obj->type = OBJ_SPHERE;
+if (validate_and_set_sphere(tokens, new_obj, &diameter) != 0)
+	return (1);
+object_add_end(&scene->objects, new_obj);
+(*obj_count)++;
+free_tokens(tokens);
+return (0);
 }
 
-void	parse_cylinder(char *line, t_scene *scene, int *obj_count)
+int	parse_plane(char *line, t_scene *scene, int *obj_count)
 {
-	char		**tokens;
-	t_object	*new_obj;
+char		**tokens;
+t_object	*new_obj;
 
-	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3] || !tokens[4]
-		|| !tokens[5] || tokens[6])
-		print_error_exit("Invalid format: <center> <axis> <dia> <h> <color>");
-	new_obj = ft_calloc(sizeof(t_object), 1);
-	if (!new_obj)
-		print_error_exit("Memory allocation failed for objects");
-	new_obj->type = OBJ_CYLINDER;
-	parse_vector(tokens[1], &new_obj->u_data.cylinder.center);
-	parse_norm_vector(tokens[2], &new_obj->u_data.cylinder.axis);
-	new_obj->u_data.cylinder.diameter = get_validated_double(tokens[3]);
-	if (new_obj->u_data.cylinder.diameter <= 0)
-		print_error_exit("Cylinder diameter must be positive");
-	new_obj->u_data.cylinder.height = get_validated_double(tokens[4]);
-	if (new_obj->u_data.cylinder.height <= 0)
-		print_error_exit("Cylinder height must be positive");
-	parse_color(tokens[5], &new_obj->u_data.cylinder.color);
-	new_obj->x = *obj_count;
-	(*obj_count)++;
-	object_add_end(&scene->objects, new_obj);
-	free_tokens(tokens);
+tokens = ft_split(line, ' ');
+if (!tokens)
+	return (print_error("Memory allocation failed for tokens."));
+if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
+	return (pr_er(tokens, "Invalid: <point> <normal> <color>"));
+new_obj = ft_calloc(1, sizeof(t_object));
+if (!new_obj)
+	return (pr_er(tokens, "Memory allocation failed for plane"));
+new_obj->type = OBJ_PLANE;
+if (parse_vector(tokens[1], &new_obj->u_data.plane.position) != 0
+	|| parse_norm_vector(tokens[2], &new_obj->u_data.plane.normal) != 0
+	|| parse_color(tokens[3], &new_obj->u_data.plane.color) != 0)
+{
+	free(new_obj);
+	return (pr_er(tokens, "Invalid data in plane definition."));
+}
+new_obj->x = *obj_count;
+object_add_end(&scene->objects, new_obj);
+(*obj_count)++;
+free_tokens(tokens);
+return (0);
+}
+
+static int	validate_and_set_cylinder(char **tokens, t_object *new_obj,
+			double *diameter, double *height)
+{
+if (parse_vector(tokens[1], &new_obj->u_data.cylinder.center) != 0
+	|| parse_norm_vector(tokens[2], &new_obj->u_data.cylinder.axis) != 0
+	|| parse_color(tokens[5], &new_obj->u_data.cylinder.color) != 0)
+	return (free(new_obj),
+		pr_er(tokens, "Invalid data in cylinder definition."));
+if (get_validated_double(tokens[3], diameter) != 0
+	|| get_validated_double(tokens[4], height) != 0)
+	return (free(new_obj),
+		pr_er(tokens, "Invalid number for cylinder dimensions."));
+if (*diameter <= 0)
+	return (free(new_obj),
+		pr_er(tokens, "Cylinder diameter must be positive"));
+if (*height <= 0)
+	return (free(new_obj),
+		pr_er(tokens, "Cylinder height must be positive"));
+new_obj->u_data.cylinder.diameter = *diameter;
+new_obj->u_data.cylinder.height = *height;
+return (0);
+}
+
+int	parse_cylinder(char *line, t_scene *scene, int *obj_count)
+{
+char		**tokens;
+t_object	*new_obj;
+double		diameter;
+double		height;
+
+tokens = ft_split(line, ' ');
+if (!tokens)
+	return (print_error("Memory allocation failed for tokens."));
+if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4]
+	|| !tokens[5] || tokens[6])
+	return (pr_er(tokens, "Invalid: <center> <axis> <dia> <h> <color>"));
+new_obj = ft_calloc(1, sizeof(t_object));
+if (!new_obj)
+	return (pr_er(tokens, "Memory allocation failed for cylinder object."));
+new_obj->type = OBJ_CYLINDER;
+if (validate_and_set_cylinder(tokens, new_obj, &diameter, &height) != 0)
+	return (1);
+new_obj->x = *obj_count;
+object_add_end(&scene->objects, new_obj);
+(*obj_count)++;
+free_tokens(tokens);
+return (0);
 }

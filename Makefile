@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myuen <myuen@student.42.fr>                +#+  +:+       +#+         #
+#    By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:22:28 by myuen             #+#    #+#              #
-#    Updated: 2025/07/07 22:18:56 by myuen            ###   ########.fr        #
+#    Updated: 2025/07/09 17:51:30 by jngew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS = src/ft_minirt.c \
        src/ft_parse_scene.c \
 	   src/ft_parse_utils.c \
 	   src/ft_parse_utils2.c \
+	   src/ft_parse_utils3.c \
 	   src/ft_parse_validation.c \
        src/ft_minirt_utils.c \
        src/ft_message.c \
@@ -98,6 +99,7 @@ BONUS_SRCS = bonus/ft_minirt_bonus.c \
        bonus/ft_parse_scene_bonus.c \
 	   bonus/ft_parse_utils_bonus.c \
 	   bonus/ft_parse_utils2_bonus.c \
+	   bonus/ft_parse_utils3_bonus.c \
 	   bonus/ft_parse_validation_bonus.c \
        bonus/ft_minirt_utils_bonus.c \
        bonus/ft_message_bonus.c \
@@ -130,7 +132,7 @@ BONUS_OBJS  = $(BONUS_SRCS:bonus/%.c=$(OBJ_DIR)/%.o)
 
 # Header files
 HEADERS     	= ft_minirt.h
-BONUS_HEADERS	= ft_minirt_bonus.h 
+BONUS_HEADERS	= ft_minirt_bonus.h
 
 # Default target
 all: $(NAME)
