@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 15:36:40 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 16:40:13 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	parse_ambient(char *line, t_scene *scene)
 {
 	char	**tokens;
+	double	ratio;
 
 	if (scene->ambient.ratio >= 0.0)
 		return (print_error("Multiple ambient light definitions"));
@@ -23,7 +24,9 @@ int	parse_ambient(char *line, t_scene *scene)
 		return (print_error("Memory allocation failed for tokens."));
 	if (!tokens[1] || !tokens[2] || !tokens[3])
 		return (pr_er(tokens, "Invalid ambient light: A <ratio> <R,G,B>"));
-	scene->ambient.ratio = get_validated_double(tokens[1]);
+	if (get_validated_double(tokens[1], &ratio) != 0)
+		return (pr_er(tokens, "Invalid ratio for ambient light."));
+	scene->ambient.ratio = ratio;
 	if (scene->ambient.ratio < 0.0 || scene->ambient.ratio > 1.0)
 		return (pr_er(tokens, "Ambient ratio must be between 0.0 and 1.0"));
 	if (parse_color(tokens[2], &scene->ambient.color) != 0)
@@ -35,6 +38,7 @@ int	parse_ambient(char *line, t_scene *scene)
 int	parse_camera(char *line, t_scene *scene)
 {
 	char	**tokens;
+	int		fov;
 
 	if (scene->camera.fov >= 0)
 		return (print_error("Multiple camera definitions"));
@@ -46,7 +50,9 @@ int	parse_camera(char *line, t_scene *scene)
 	if (parse_vector(tokens[1], &scene->camera.position) != 0 ||
 		parse_norm_vector(tokens[2], &scene->camera.orientation) != 0)
 		return (pr_er(tokens, "Invalid vector in camera definition."));
-	scene->camera.fov = get_validated_int(tokens[3]);
+	if (get_validated_int(tokens[3], &fov) != 0)
+		return (pr_er(tokens, "Invalid FOV for camera."));
+	scene->camera.fov = fov;
 	if (scene->camera.fov < 0 || scene->camera.fov > 180)
 		return (pr_er(tokens, "Camera FOV must be between 0 and 180"));
 	build_camera_matrix(&scene->camera);
@@ -58,6 +64,7 @@ int	parse_light(char *line, t_scene *scene)
 {
 	char	**tokens;
 	int		token_count;
+	double	brightness;
 
 	if (scene->light.brightness >= 0.0)
 		return (print_error("Multiple light definitions"));
@@ -69,7 +76,9 @@ int	parse_light(char *line, t_scene *scene)
 		return (pr_er(tokens, "Invalid light: L <pos> <brightness> [color]"));
 	if (parse_vector(tokens[1], &scene->light.position) != 0)
 		return (pr_er(tokens, "Invalid vector for light position."));
-	scene->light.brightness = get_validated_double(tokens[2]);
+	if (get_validated_double(tokens[2], &brightness) != 0)
+		return (pr_er(tokens, "Invalid brightness for light."));
+	scene->light.brightness = brightness;
 	if (scene->light.brightness < 0.0 || scene->light.brightness > 1.0)
 		return (pr_er(tokens, "Light brightness must be between 0.0 and 1.0"));
 	if (token_count == 4)
@@ -86,13 +95,20 @@ int	parse_light(char *line, t_scene *scene)
 int	parse_color(char *str, t_color *color)
 {
 	char	**rgb;
+	int		r;
+	int		g;
+	int		b;
 
 	rgb = ft_split(str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 		return (pr_er(rgb, "Invalid color format: must be R,G,B"));
-	color->r = get_validated_int(rgb[0]);
-	color->g = get_validated_int(rgb[1]);
-	color->b = get_validated_int(rgb[2]);
+	if (get_validated_int(rgb[0], &r) != 0 ||
+		get_validated_int(rgb[1], &g) != 0 ||
+		get_validated_int(rgb[2], &b) != 0)
+		return (pr_er(rgb, "Invalid color values."));
+	color->r = r;
+	color->g = g;
+	color->b = b;
 	if (color->r > 255 || color->g > 255 || color->b > 255)
 		return (pr_er(rgb, "Color values must be between 0 and 255"));
 	free_tokens(rgb);
