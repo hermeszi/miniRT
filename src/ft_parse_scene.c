@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 16:40:13 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 16:45:39 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse_ambient(char *line, t_scene *scene)
 	tokens = ft_split(line, ' ');
 	if (!tokens)
 		return (print_error("Memory allocation failed for tokens."));
-	if (!tokens[1] || !tokens[2] || !tokens[3])
+	if (!tokens[1] || !tokens[2] || tokens[3])
 		return (pr_er(tokens, "Invalid ambient light: A <ratio> <R,G,B>"));
 	if (get_validated_double(tokens[1], &ratio) != 0)
 		return (pr_er(tokens, "Invalid ratio for ambient light."));
