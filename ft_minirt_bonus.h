@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/09 16:28:48 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 17:15:28 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,6 @@ int			get_validated_int(char *str, int *result_out);
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
-void		print_error_exit(char *msg);
 int			print_error(char *msg);
 int			pr_er(char **tokens, char *msg);
 void		print_color(t_color c);

@@ -317,7 +317,6 @@ int			get_validated_int(char *str, int *result_out);
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
-void		print_error_exit(char *msg);
 int			print_error(char *msg);
 int			pr_er(char **tokens, char *msg);
 void		print_color(t_color c);
