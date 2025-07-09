@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:46:22 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 19:49:55 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 18:58:18 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	render_scene(t_main *app)
 	if (!app || !app->display || !app->scene)
 		return ;
 	draw_scene(app);
-	mlx_put_image_to_window(app->display->mlx_ptr, app->display->win_ptr, \
-			app->display->img_ptr, 0, 0);
+	mlx_put_image_to_window(app->display->mlx_ptr, app->display->win_ptr,
+		app->display->img_ptr, 0, 0);
 }
 
 // static void	draw_test_layers_screen(t_display *display)

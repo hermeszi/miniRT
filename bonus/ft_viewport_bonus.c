@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_viewport_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 19:50:10 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 18:57:48 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt_bonus.h"
 
-static void	pixel_to_normalized(int screen_x, int screen_y, \
-								double *u, double *v)
+static void	pixel_to_normalized(int screen_x, int screen_y,
+			double *u, double *v)
 {
 	*u = ((double)screen_x / (double)WIN_WIDTH) - 0.5;
 	*v = 0.5 - ((double)screen_y / (double)WIN_HEIGHT);

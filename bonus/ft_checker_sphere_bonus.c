@@ -12,8 +12,8 @@
 
 #include "ft_minirt_bonus.h"
 
-static void	get_sphere_coordinates(t_hit hit, t_sphere sphere, \
-	double *u, double *v)
+static void	get_sphere_coordinates(t_hit hit, t_sphere sphere,
+		double *u, double *v)
 {
 	t_vec3	hit_offset;
 	t_vec3	direction;
@@ -28,8 +28,8 @@ static void	get_sphere_coordinates(t_hit hit, t_sphere sphere, \
 	*v = phi / M_PI;
 }
 
-static t_color	apply_sphere_checker_pattern(double u, double v, \
-	t_color base_color)
+static t_color	apply_sphere_checker_pattern(double u, double v,
+		t_color base_color)
 {
 	double	scaled_u;
 	double	scaled_v;

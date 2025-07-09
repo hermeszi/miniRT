@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/09 17:36:14 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 18:51:55 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	print_error(char *message)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(message, 2);
-	exit(EXIT_FAILURE);
 	return (1);
 }
 

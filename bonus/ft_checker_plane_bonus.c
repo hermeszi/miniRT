@@ -12,8 +12,8 @@
 
 #include "ft_minirt_bonus.h"
 
-static void	get_plane_coordinates(t_hit hit, t_plane plane, \
-	double *u, double *v)
+static void	get_plane_coordinates(t_hit hit, t_plane plane,
+		double *u, double *v)
 {
 	t_vec3	tangent_u;
 	t_vec3	tangent_v;
