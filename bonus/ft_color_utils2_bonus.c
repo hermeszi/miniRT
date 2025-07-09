@@ -6,7 +6,7 @@
 /*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 10:11:34 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/07 22:18:10 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 12:02:35 by myuen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_color	color_scale(t_color c, double factor)
 {
 	t_color	res;
 
-	res.r = c.r * factor;
-	res.g = c.g * factor;
-	res.b = c.b * factor;
+	res.r = fmin(c.r * factor, 255.0);
+	res.g = fmin(c.g * factor, 255.0);
+	res.b = fmin(c.b * factor, 255.0);
 	return (res);
 }
 
