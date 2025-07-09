@@ -6,61 +6,101 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/04 18:09:09 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 15:58:33 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-void	parse_vector(char *str, t_vec3 *vec)
+int	parse_vector(char *str, t_vec3 *vec)
 {
 	char	**coords;
+	double	x;
+	double	y;
+	double	z;
 
 	coords = ft_split(str, ',');
-	if (!coords || !coords[0] || !coords[1] || !coords[2] || coords[3])
+	if (!coords)
+		return (print_error("Memory allocation failed during parsing."));
+	if (!coords[0] || !coords[1] || !coords[2] || coords[3])
+		return (pr_er(coords, "Invalid vector format: must be x,y,z"));
+	if (get_validated_double(coords[0], &x) != 0 ||
+		get_validated_double(coords[1], &y) != 0 ||
+		get_validated_double(coords[2], &z) != 0)
 	{
-		if (coords)
-			free_tokens(coords);
-		print_error_exit("Invalid vector format: must be x,y,z");
+		return (pr_er(coords, "Invalid number in vector definition."));
 	}
-	vec->x = get_validated_double(coords[0]);
-	vec->y = get_validated_double(coords[1]);
-	vec->z = get_validated_double(coords[2]);
+	vec->x = x;
+	vec->y = y;
+	vec->z = z;
 	free_tokens(coords);
+	return (0);
 }
 
-static void	read_and_parse_scene(int fd, t_scene *scene)
+
+static int	read_and_parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
 	int		obj_count;
+	int		status;
 
 	obj_count = 0;
+	status = 0;
 	line = get_next_line(fd);
 	if (!line)
-		print_error_exit("Empty file");
-	line = clean_line(line);
-	parse_lines(fd, line, scene, &obj_count);
-	validate_scene(scene);
+		return (print_error("Scene file is empty or could not be read."));
+	while (line)
+	{
+		char *cleaned_line = clean_line(line);
+		if (cleaned_line && cleaned_line[0] != '\0')
+		{
+			status = parse_helper(cleaned_line, scene, &obj_count);
+			if (status != 0)
+			{
+				free(cleaned_line);
+				while ((line = get_next_line(fd)) != NULL)
+					free(line);
+				return (status);
+			}
+		}
+		free(cleaned_line);
+		line = get_next_line(fd);
+	}
+	scene->object_count = obj_count;
+	return (validate_scene(scene));
 }
 
 t_scene	*parse_file(char *file)
 {
 	int		fd;
 	t_scene	*scene;
+	int		obj_count;
 
-	scene = malloc(sizeof(t_scene));
+	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
-		print_error_exit("Scene memory allocation failed");
+	{
+		print_error("Scene memory allocation failed");
+		return (NULL);
+	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		free(scene);
-		print_error_exit("Could not open scene file");
+		return (print_error("Could not open scene file"), NULL);
 	}
 	check_filename(file);
 	init_scene(scene);
-	read_and_parse_scene(fd, scene);
+	obj_count = 0;
+	if (parse_lines(fd, scene, &obj_count) != 0 || validate_scene(scene) != 0)
+	{
+		close(fd);
+		free_scene(scene);
+		return (NULL);
+	}
 	if (close(fd) == -1)
-		print_error_exit("Failed to close file");
+	{
+		free_scene(scene);
+		return (print_error("Failed to close file"), NULL);
+	}
 	return (scene);
 }

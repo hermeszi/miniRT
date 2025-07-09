@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minirt_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/04 19:48:01 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 16:09:18 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,13 +311,15 @@ void		free_all(t_main *app);
 /********************************************************/
 long		ft_atoi_strict(const char *str, char **endptr);
 double		ft_atof_strict(const char *str, char **endptr);
-double		get_validated_double(char *str);
-int			get_validated_int(char *str);
+int			get_validated_double(char *str, double *result_out);
+int			get_validated_int(char *str, int *result_out);
 
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
 void		print_error_exit(char *msg);
+int			print_error(char *msg);
+int			pr_er(char **tokens, char *msg);
 void		print_color(t_color c);
 void		print_vec3(t_vec3 v);
 void		print_scene_info(t_scene *scene);
@@ -327,12 +329,12 @@ void		print_scene_info(t_scene *scene);
 /********************************************************/
 void		check_filename(char *file);
 void		init_scene(t_scene *scene);
-void		validate_scene(t_scene *scene);
-char		*clean_line(char *line);
-void		parse_lines(int fd, char *line, t_scene *scene, int *obj_count);
 void		free_tokens(char **tokens);
-void		parse_vector(char *str, t_vec3 *vec);
-void		parse_norm_vector(char *str, t_vec3 *vec);
+char		*clean_line(char *line);
+int			validate_scene(t_scene *scene);
+int			parse_lines(int fd, t_scene *scene, int *obj_count);
+int			parse_vector(char *str, t_vec3 *vec);
+int			parse_norm_vector(char *str, t_vec3 *vec);
 t_scene		*parse_file(char *file);
 
 /********************************************************/
@@ -353,10 +355,10 @@ void		parse_cylinder(char *line, t_scene *scene, int *obj_count);
 /********************************************************/
 /*					Parse Scene Functions				*/
 /********************************************************/
-void		parse_ambient(char *line, t_scene *scene);
-void		parse_camera(char *line, t_scene *scene);
-void		parse_light(char *line, t_scene *scene);
-void		parse_color(char *str, t_color *color);
+int			parse_ambient(char *line, t_scene *scene);
+int			parse_camera(char *line, t_scene *scene);
+int			parse_light(char *line, t_scene *scene);
+int			parse_color(char *str, t_color *color);
 
 /********************************************************/
 /*					Vector Functions					*/

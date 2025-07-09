@@ -311,13 +311,15 @@ void		free_all(t_main *app);
 /********************************************************/
 long		ft_atoi_strict(const char *str, char **endptr);
 double		ft_atof_strict(const char *str, char **endptr);
-double		get_validated_double(char *str);
-int			get_validated_int(char *str);
+int			get_validated_double(char *str, double *result_out);
+int			get_validated_int(char *str, int *result_out);
 
 /********************************************************/
 /*						Print Messages Functions		*/
 /********************************************************/
 void		print_error_exit(char *msg);
+int			print_error(char *msg);
+int			pr_er(char **tokens, char *msg);
 void		print_color(t_color c);
 void		print_vec3(t_vec3 v);
 void		print_scene_info(t_scene *scene);
@@ -327,12 +329,12 @@ void		print_scene_info(t_scene *scene);
 /********************************************************/
 void		check_filename(char *file);
 void		init_scene(t_scene *scene);
-void		validate_scene(t_scene *scene);
-char		*clean_line(char *line);
-void		parse_lines(int fd, char *line, t_scene *scene, int *obj_count);
 void		free_tokens(char **tokens);
-void		parse_vector(char *str, t_vec3 *vec);
-void		parse_norm_vector(char *str, t_vec3 *vec);
+char		*clean_line(char *line);
+int			validate_scene(t_scene *scene);
+int			parse_lines(int fd, t_scene *scene, int *obj_count);
+int			parse_vector(char *str, t_vec3 *vec);
+int			parse_norm_vector(char *str, t_vec3 *vec);
 t_scene		*parse_file(char *file);
 
 /********************************************************/
@@ -346,17 +348,17 @@ void		free_objects(t_object *lst);
 /********************************************************/
 /*					Parse Objects Functions				*/
 /********************************************************/
-void		parse_sphere(char *line, t_scene *scene, int *obj_count);
-void		parse_plane(char *line, t_scene *scene, int *obj_count);
-void		parse_cylinder(char *line, t_scene *scene, int *obj_count);
+int			parse_sphere(char *line, t_scene *scene, int *obj_count);
+int			parse_plane(char *line, t_scene *scene, int *obj_count);
+int			parse_cylinder(char *line, t_scene *scene, int *obj_count);
 
 /********************************************************/
 /*					Parse Scene Functions				*/
 /********************************************************/
-void		parse_ambient(char *line, t_scene *scene);
-void		parse_camera(char *line, t_scene *scene);
-void		parse_light(char *line, t_scene *scene);
-void		parse_color(char *str, t_color *color);
+int			parse_ambient(char *line, t_scene *scene);
+int			parse_camera(char *line, t_scene *scene);
+int			parse_light(char *line, t_scene *scene);
+int			parse_color(char *str, t_color *color);
 
 /********************************************************/
 /*					Vector Functions					*/

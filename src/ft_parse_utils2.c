@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:04:07 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/02 18:04:32 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 15:54:39 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	check_filename(char *file)
 	len = ft_strlen(file);
 	if (len < 3 || file[len - 3] != '.' || file[len - 2] != 'r'
 		|| file [len - 1] != 't')
-		print_error_exit ("Invalid file format");
+	{
+		print_error("Invalid file extension. Must be .rt");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	init_scene(t_scene *scene)
@@ -32,30 +35,35 @@ void	init_scene(t_scene *scene)
 	scene->objects = NULL;
 }
 
-void	validate_scene(t_scene *scene)
+int	validate_scene(t_scene *scene)
 {
 	if (scene->ambient.ratio < 0)
-		print_error_exit("Missing ambient light");
+		return (print_error("Missing ambient light 'A' in scene file."));
 	if (scene->camera.fov < 0)
-		print_error_exit("Missing camera");
+		return (print_error("Missing camera 'C' in scene file."));
 	if (scene->light.brightness < 0)
-		print_error_exit("Missing light source");
+		return (print_error("Missing light 'L' in scene file."));
+	return (0);
 }
 
 void	free_tokens(char **tokens)
 {
 	int	x;
 
+	if (!tokens)
+		return;
 	x = 0;
 	while (tokens[x])
 		free (tokens[x++]);
 	free (tokens);
 }
 
-void	parse_norm_vector(char *str, t_vec3 *vec)
+int	parse_norm_vector(char *str, t_vec3 *vec)
 {
-	parse_vector(str, vec);
+	if (parse_vector(str, vec) != 0)
+		return (1);
 	if (vec->x == 0 && vec->y == 0 && vec->z == 0)
-		print_error_exit("Direction vector cannot be zero");
+		return (print_error("Direction vector cannot be zero."));
 	*vec = vec3_norm(*vec);
+	return (0);
 }

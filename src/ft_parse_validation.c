@@ -6,36 +6,36 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:29:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/04 18:29:43 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 15:57:46 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt.h"
 
-double	get_validated_double(char *str)
+int	get_validated_double(char *str, double *result_out)
 {
 	char	*endptr;
-	double	result;
 
 	if (!str)
-		print_error_exit("Invalid number format: NULL string provided");
-	result = ft_atof_strict(str, &endptr);
+		return (print_error("Invalid number format: NULL string provided"));
+	*result_out = ft_atof_strict(str, &endptr);
 	if (endptr == str || *endptr != '\0')
-		print_error_exit("Invalid double format in scene file");
-	return (result);
+		return (print_error("Invalid double format in scene file"));
+	return (0);
 }
 
-int	get_validated_int(char *str)
+int	get_validated_int(char *str, int *result_out)
 {
 	char	*endptr;
 	long	result;
 
 	if (!str)
-		print_error_exit("Invalid integer format: NULL string provided");
+		return (print_error("Invalid integer format: NULL string provided"));
 	result = ft_atoi_strict(str, &endptr);
 	if (endptr == str || *endptr != '\0')
-		print_error_exit("Invalid integer format in scene file");
+		return (print_error("Invalid integer format in scene file"));
 	if (result > INT_MAX || result < INT_MIN)
-		print_error_exit("Integer out of range");
-	return ((int)result);
+		return (print_error("Integer out of range"));
+	*result_out = (int)result;
+	return (0);
 }

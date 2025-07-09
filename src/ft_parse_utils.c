@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:02:19 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/02 18:30:30 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 16:05:24 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,69 +37,81 @@ static void	collapse_whitespace(const char *line, char *clean, int x, int *y)
 	}
 }
 
-char	*clean_line(char *line)
+char *clean_line(char *line)
 {
-	char	*clean;
-	int		x;
-	int		y;
+    char	*clean;
+    int		x;
+    int		y;
 
-	if (!line)
-		return (NULL);
-	x = 0;
-	while (line[x] && line[x] != '\n')
-		x++;
-	line[x] = '\0';
-	x = skip_whitespace(line);
-	if (!line[x])
-	{
-		free (line);
-		return (ft_strdup(""));
-	}
-	clean = malloc(ft_strlen(line) + 1);
-	if (!clean)
-		print_error_exit ("Memory allocation failed");
-	y = 0;
-	collapse_whitespace(line, clean, x, &y);
-	clean[y] = '\0';
-	free (line);
-	return (clean);
+    if (!line)
+        return (NULL);
+    x = 0;
+    while (line[x] && line[x] != '\n')
+        x++;
+    line[x] = '\0';
+    x = skip_whitespace(line);
+    if (!line[x])
+    {
+        free(line);
+        return (ft_strdup(""));
+    }
+    clean = malloc(ft_strlen(line) + 1);
+    if (!clean)
+    {
+        free(line);
+        print_error("Memory allocation failed in clean_line");
+        return (NULL);
+    }
+    y = 0;
+    collapse_whitespace(line, clean, x, &y);
+    clean[y] = '\0';
+    free(line);
+    return (clean);
 }
 
-static void	parse_helper(char *line, t_scene *scene, int *obj_count)
+
+static int	parse_helper(char *line, t_scene *scene, int *obj_count)
 {
 	if (!ft_strncmp(line, "A ", 2))
-		parse_ambient(line, scene);
+		return (parse_ambient(line, scene));
 	else if (!ft_strncmp(line, "C ", 2))
-		parse_camera(line, scene);
+		return (parse_camera(line, scene));
 	else if (!ft_strncmp(line, "L ", 2))
-		parse_light(line, scene);
+		return (parse_light(line, scene));
 	else if (!ft_strncmp(line, "sp ", 3))
-		parse_sphere(line, scene, obj_count);
+		return (parse_sphere(line, scene, obj_count));
 	else if (!ft_strncmp(line, "pl ", 3))
-		parse_plane(line, scene, obj_count);
+		return (parse_plane(line, scene, obj_count));
 	else if (!ft_strncmp(line, "cy ", 3))
-		parse_cylinder(line, scene, obj_count);
-	else
-		print_error_exit("Invalid element identifier");
+		return (parse_cylinder(line, scene, obj_count));
+	return (print_error("Invalid element identifier in scene file."));
 }
 
-void	parse_lines(int fd, char *line, t_scene *scene, int *obj_count)
+int	parse_lines(int fd, t_scene *scene, int *obj_count)
 {
+	char	*line;
+	char	*cleaned_line;
+	int		status;
+
+	status = 0;
+	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] == '\0')
+		cleaned_line = clean_line(line);
+		if (!cleaned_line)
+			return (1);
+		if (cleaned_line[0] != '\0')
 		{
-			free (line);
-			line = get_next_line(fd);
-			if (line)
-				line = clean_line(line);
-			continue ;
+			status = parse_helper(cleaned_line, scene, obj_count);
 		}
-		parse_helper(line, scene, obj_count);
-		free (line);
+		free(cleaned_line);
+		if (status != 0)
+		{
+			while ((line = get_next_line(fd)) != NULL)
+				free(line);
+			return (status);
+		}
 		line = get_next_line(fd);
-		if (line)
-			line = clean_line(line);
 	}
-	scene->object_count = *obj_count;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_message.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:13:00 by myuen             #+#    #+#             */
-/*   Updated: 2025/06/12 16:36:14 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/09 14:56:53 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@ void	print_error_exit(char *message)
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(message, 2);
 	exit (EXIT_FAILURE);
+}
+
+int	print_error(char *message)
+{
+	ft_putendl_fd("Error", 2);
+	ft_putendl_fd(message, 2);
+	return (1);
+}
+
+int	pr_er(char **tokens, char *msg)
+{
+	free_tokens(tokens);
+	return (print_error(msg));
 }
 
 void	print_vec3(t_vec3 v)
