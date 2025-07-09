@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:02:19 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 16:05:24 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 16:25:01 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ char *clean_line(char *line)
     return (clean);
 }
 
-
-static int	parse_helper(char *line, t_scene *scene, int *obj_count)
+int	parse_helper(char *line, t_scene *scene, int *obj_count)
 {
 	if (!ft_strncmp(line, "A ", 2))
 		return (parse_ambient(line, scene));

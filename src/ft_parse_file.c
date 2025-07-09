@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:54:14 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 15:58:33 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/09 16:28:19 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	parse_vector(char *str, t_vec3 *vec)
 }
 
 
-static int	read_and_parse_scene(int fd, t_scene *scene)
+int	read_and_parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
 	int		obj_count;

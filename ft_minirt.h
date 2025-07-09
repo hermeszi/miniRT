@@ -332,9 +332,11 @@ void		init_scene(t_scene *scene);
 void		free_tokens(char **tokens);
 char		*clean_line(char *line);
 int			validate_scene(t_scene *scene);
+int			parse_helper(char *line, t_scene *scene, int *obj_count);
 int			parse_lines(int fd, t_scene *scene, int *obj_count);
 int			parse_vector(char *str, t_vec3 *vec);
 int			parse_norm_vector(char *str, t_vec3 *vec);
+int			read_and_parse_scene(int fd, t_scene *scene);
 t_scene		*parse_file(char *file);
 
 /********************************************************/
