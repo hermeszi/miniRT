@@ -6,39 +6,11 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:02:19 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/10 17:22:54 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/10 19:17:50 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minirt_bonus.h"
-
-int	check_invalid_commas(const char *str)
-{
-	int	x;
-	int	last_was_comma;
-
-	if (!str || !*str)
-		return (1);
-	last_was_comma = 1;
-	x = 0;
-	while (str[x])
-	{
-		if (str[x] == ',')
-		{
-			if (last_was_comma)
-				return (1);
-			last_was_comma = 1;
-		}
-		else if (str[x] != '.' && str[x] != '-' && !ft_isdigit(str[x]))
-			return (1);
-		else
-			last_was_comma = 0;
-		x++;
-	}
-	if (last_was_comma)
-		return (1);
-	return (0);
-}
 
 int	parse_helper(char *line, t_scene *scene, int *obj_count)
 {
