@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:40:18 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 18:13:15 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/10 17:23:33 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int	parse_color(char *str, t_color *color)
 	int		g;
 	int		b;
 
+	if (check_invalid_commas(str))
+		return (print_error("Invalid: contains empty fields or extra commas"));
 	rgb = ft_split(str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 		return (pr_er(rgb, "Invalid color format: must be R,G,B"));

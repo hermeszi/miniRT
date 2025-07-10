@@ -6,7 +6,7 @@
 /*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:56:57 by jngew             #+#    #+#             */
-/*   Updated: 2025/07/09 17:34:54 by jngew            ###   ########.fr       */
+/*   Updated: 2025/07/10 17:21:32 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	parse_vector(char *str, t_vec3 *vec)
 	double	y;
 	double	z;
 
+	if (check_invalid_commas(str))
+		return (print_error("Invalid: contains empty fields or extra commas"));
 	coords = ft_split(str, ',');
 	if (!coords)
 		return (print_error("Memory allocation failed during parsing."));

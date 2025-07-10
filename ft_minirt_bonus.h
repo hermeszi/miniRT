@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minirt_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myuen <myuen@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jngew <jngew@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:21:07 by myuen             #+#    #+#             */
-/*   Updated: 2025/07/09 19:23:19 by myuen            ###   ########.fr       */
+/*   Updated: 2025/07/10 17:23:56 by jngew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ int			parse_lines(int fd, t_scene *scene, int *obj_count);
 int			parse_vector(char *str, t_vec3 *vec);
 int			parse_norm_vector(char *str, t_vec3 *vec);
 int			read_and_parse_scene(int fd, t_scene *scene);
+int			check_invalid_commas(const char *str);
 t_scene		*parse_file(char *file);
 
 /********************************************************/
